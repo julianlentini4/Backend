@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 mySqlPool.query("SELECT 1").then(() => {
     
     //MYSQL 
-    console.log('CONNECTED TO MYSQL')
+    console.log('CONNECTED TO MYSQL :)')
     //listen
     app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
