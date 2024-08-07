@@ -1,5 +1,5 @@
 const express = require('express')
-const { getMedicos, getMedicoById } = require('./medicoController')
+const { getMedicos, getMedicoByMatricula, createMedico, updateMedico, deleteMedico} = require('./medicoController')
 //express router
 const router = express.Router()
 
@@ -7,6 +7,13 @@ const router = express.Router()
 
 //GET ALL MEDICOS
 router.get('/getall',getMedicos)
-router.get('/getid/:id',getMedicoById)
+//GET MEDICO BY ID
+router.get('/getMedico/:matricula',getMedicoByMatricula)
+//CREATE NEW MEDICO
+router.post('/create',createMedico)
+//UPDATE MEDICO
+router.put('/update',updateMedico)
+//DELETE MEDICO
+router.delete('/delete',deleteMedico)
 
 module.exports = router
