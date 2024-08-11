@@ -1,4 +1,4 @@
-const mysql = require('mysql2/promise')
+import mysql from 'mysql2/promise';
 const mySqlPool = mysql.createPool({
     host: "localhost",
     user: "root",
@@ -6,4 +6,4 @@ const mySqlPool = mysql.createPool({
     database: "sanatorio"
 });
 
-module.exports = mySqlPool;
+export default mySqlPool;

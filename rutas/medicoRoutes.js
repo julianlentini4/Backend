@@ -1,19 +1,18 @@
-const express = require('express')
-const { getMedicos, getMedicoByMatricula, createMedico, updateMedico, deleteMedico} = require('./medicoController')
+import { Router } from 'express'
+import {MedicoController } from './medicoController.js'
 //express router
-const router = express.Router()
+export const router = Router()
 
 //routes
 
 //GET ALL MEDICOS
-router.get('/getall',getMedicos)
+router.get('/getall', MedicoController.getMedicos)
 //GET MEDICO BY ID
-router.get('/getMedico/:matricula',getMedicoByMatricula)
+router.get('/getMedico/:matricula', MedicoController.getMedicoByMatricula)
 //CREATE NEW MEDICO
-router.post('/create',createMedico)
+router.post('/create', MedicoController.createMedico)
 //UPDATE MEDICO
-router.put('/update',updateMedico)
+router.put('/update', MedicoController.updateMedico)
 //DELETE MEDICO
-router.delete('/delete',deleteMedico)
+router.delete('/delete', MedicoController.deleteMedico)
 
-module.exports = router
