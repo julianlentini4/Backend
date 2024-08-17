@@ -1,5 +1,5 @@
 const express = require('express')
-const { getMedicos, getMedicoById } = require('./medicoController')
+const { getMedicos, getMedicoById } = require('../controladores/medicoController')
 //express router
 const router = express.Router()
 
