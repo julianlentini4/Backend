@@ -1,4 +1,6 @@
-const db = require("../config/db");
+import mySqlPool, { query } from "../config/db.js"
+const db = mySqlPool
+
 
 export class PacienteController{
     static async getPacientes(_req,res){
@@ -35,7 +37,7 @@ export class PacienteController{
                     message:'id en url invalida'
                 })
             } 
-            const data = await db.query('SELECT * FROM paciente WHERE idPaciente=?',[dniPaciente])
+            const data = await db.query('SELECT * FROM paciente WHERE paciente.dni=?',[dniPaciente])
             if(!data){
                 return res.status(404).send({
                     success:false,
