@@ -3,7 +3,7 @@ const mySqlPool = require('./config/db')
 const app = express()
 const port = 3000
 
-app.use('/medico', require('./rutas/medicoRoutes'));
+app.use('/medico', require('./routes/medicoRoutes'));
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!')
