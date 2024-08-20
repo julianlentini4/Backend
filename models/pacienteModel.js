@@ -2,7 +2,7 @@ import mySqlPool, { query } from "../config/db.js"
 const db = mySqlPool
 
 export class PacienteModel{
-    static async getAll (){
+    static async getPacientes (){
         const [pacientes] = await db.query('SELECT * FROM paciente')
         return pacientes
     }
@@ -36,7 +36,7 @@ export class PacienteModel{
         await db.query('DELETE FROM paciente WHERE id = ?',[dni])
     }
 
-    static async update ({dni,input}){
+    static async update ({input}){
         const{
             dni,
             nombre,

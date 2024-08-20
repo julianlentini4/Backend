@@ -1,18 +1,13 @@
 import { Router } from 'express'
 import { PacienteController } from '../controladores/pacienteController.js'
 
-export const createPacienteRouter = ({ pacienteModel }) => {
-    const pacientesRouter = Router()
+export const pacientesRouter = Router()
 
-    const pacienteController = new PacienteController({ pacienteModel })
+pacientesRouter.get('/',PacienteController.getAll)
+pacientesRouter.get('/:id',PacienteController.getById)
+pacientesRouter.post('/', PacienteController.create)
+pacientesRouter.patch('/:id',PacienteController.update)
+pacientesRouter.delete('/:id',PacienteController.delete)
 
-    pacientesRout.get('/',PacienteController.getAll)
-    pacientesRout.get('/:id',PacienteController.getById)
-    pacientesRout.post('/', PacienteController.create)
-    pacientesRout.patch('/:id',PacienteController.update)
-    pacientesRout.delete('/:id',PacienteController.delete)
-
-    return pacientesRouter
-}
 
 
