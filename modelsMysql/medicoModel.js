@@ -1,5 +1,5 @@
 import mySqlPool  from "../config/db.js";
-import { validateMedico } from "../schemas/medicoSchema.js";
+//import { validateMedico } from "../schemas/medicoSchema.js";
 const db = mySqlPool
 //GET ALL MEDICOS LIST
 
