@@ -1,13 +1,15 @@
 import express, {json} from 'express';
 import  mySqlPool  from './config/db.js';
 import {createMedicoRoutes} from './routes/medicoRoutes.js';
+import { createInformeRoutes } from './routes/informeRoutes.js';
 
 
-export const createApp = ({ medicoModel }) => {
+export const createApp = ({ medicoModel, informeModel }) => {
   const app = express()
   const port = process.env.PORT ?? 3000 //Es para que tome el puerto de algun posible hosting y en caso de no tenerlo que tome el 3000 por defecto
   app.use(json());
   app.use('/medico', createMedicoRoutes({ medicoModel }));
+  app.use('/informe', createInformeRoutes({ informeModel }));
 
   app.get('/', (req, res) => {
     res.send('<h1>Hello World!')
