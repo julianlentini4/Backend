@@ -1,6 +1,5 @@
 import { validateSala, validatePartialSala } from "../schemas/salaSchema.js";
 import { SalaModel } from "../models/salaModel.js";
-import { PacienteModel } from "../models/pacienteModel.js";
 
 export class SalaController{
 

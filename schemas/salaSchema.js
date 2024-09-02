@@ -2,7 +2,7 @@ import z from 'zod'
 
 const salaSchema = z.object({
     nro: z.number(),
-    descripcion: z.string(),
+    estado: z.string(),
 })
 
 export function validateSala(input){
