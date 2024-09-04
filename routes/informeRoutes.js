@@ -9,15 +9,15 @@ export const createInformeRoutes = ({ informeModel }) => {
     const informeController = new InformeController({ informeModel })
 
     //GET ALL MEDICOS
-    informeRouter.get('/getall', informeController.getInformes)
+    informeRouter.get('/', informeController.getInformes)
     //GET MEDICO BY ID
-    informeRouter.get('/getInforme/:nroAcceso', informeController.getInformeByAccesNumber)
+    informeRouter.get('/:nroAcceso', informeController.getInformeByAccesNumber)
     //CREATE NEW MEDICO
-    informeRouter.post('/create', informeController.createInforme)
+    informeRouter.post('/', informeController.createInforme)
     //UPDATE MEDICO
-    informeRouter.put('/update', informeController.updateInforme)
+    informeRouter.put('/', informeController.updateInforme)
     //DELETE MEDICO
-    informeRouter.delete('/delete/:nroAcceso', informeController.deleteInforme)
+    informeRouter.delete('/:nroAcceso', informeController.deleteInforme)
 
     return informeRouter 
 }

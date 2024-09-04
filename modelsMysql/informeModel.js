@@ -4,7 +4,7 @@ const db = mySqlPool
 
 export class InformeModel{
     static async getInformes (){
-        const data = await db.query('SELECT * FROM informe INNER JOIN medico ON medico.matricula = informe.matricula')
+        const data = await db.query('SELECT * FROM informe INNER JOIN medico ON medico.matricula = informe.matricula') // Agregar inner con paciente y postrar todos los datos
         return data[0]
     }
 
@@ -24,10 +24,10 @@ export class InformeModel{
             fechaFirmado = null,
             estado
         } = input
-        console.log(nroAcceso) //Visualización en consola de matricula
+        console.log(nroAcceso) //Visualización en consola de nroAcceso
         try{ 
             //Modificar Consultas
-            const newMedico = await db.query('INSERT INTO informe(nroAcceso,idPaciente,matricula,descripcion,fechaInicio,fechaFirmad,estado) VALUES(?,?,?,?,?,?,?)',[nroAcceso,idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado])
+            const newMedico = await db.query('INSERT INTO informe(nroAcceso,idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado) VALUES(?,?,?,?,?,?,?)',[nroAcceso,idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado])
             return newMedico[0]
         }catch(error){
              console.log(error) //Agregar Manejo de errores 
@@ -46,7 +46,7 @@ export class InformeModel{
             estado
         } = input
         try{
-            const data = await db.query('UPDATE informe SET idPaciente = ? , matricula = ? , descripcion = ? , fechaInicio = ? , fechaFirmad = ? , estado = ? WHERE nroAcceso=?',[idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado,nroAcceso])
+            const data = await db.query('UPDATE informe SET idPaciente = ? , matricula = ? , descripcion = ? , fechaInicio = ? , fechaFirmado = ? , estado = ? WHERE nroAcceso=?',[idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado,nroAcceso])
             console.log(data)
             return data[0]
         }
@@ -58,7 +58,7 @@ export class InformeModel{
 
     static async deleteInforme({nroAcceso}){
         try{
-            const data = await db.query('DELETE FROM medico WHERE matricula=?',[nroAcceso])
+            const data = await db.query('DELETE FROM informe WHERE nroAcceso=?',[nroAcceso])
             return data[0]
         }catch(error){
             console.log(error) // agregar manejo de errores

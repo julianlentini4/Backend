@@ -1,7 +1,7 @@
 import z from 'zod'
 //Validación de datos 
 const informeSchema = z.object({
-  nroAcceso: z.string().refine(value => value.length == 6,{
+  nroAcceso: z.string().refine(value => value.length == 7,{
     message: "El numero de acceso debe ser de a 7 digitos"
   }),
   idPaciente: z.number().int({

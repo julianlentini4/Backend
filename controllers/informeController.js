@@ -13,6 +13,7 @@ export class InformeController{
     getInformeByAccesNumber = async (req,res) => {
         const {nroAcceso} = req.params
         const data = await this.informeModel.getInformeByAccessNumber({ nroAcceso })
+        console.log(data)
         if(data) return res.status(200).json(data)        
         return res.status(404).json({message: 'Informe not found'})        
     }
