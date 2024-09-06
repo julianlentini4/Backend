@@ -57,15 +57,16 @@ export class Pte_IngresoModel{
             idIngreso
         } = input
         try{
-            const data = await db.query('UPDATE paciente_ingreso SET descripcion = ?, fechaRecepcion = ?, horaRecepcion = ?, matricula = ?, tipo = ?, idPaciente = ?, idTipo = ? WHERE nroAcceso=?',[
-                nroAcceso,
+            const data = await db.query('UPDATE paciente_ingreso SET descripcion = ?, fechaRecepcion = ?, horaRecepcion = ?, matricula = ?, tipo = ?, idPaciente = ?, idIngreso = ? WHERE nroAcceso=? ',[
+               
                 descripcion,
                 fechaRecepcion,
                 horaRecepcion,
                 matricula,
                 tipo,
                 idPaciente,
-                idIngreso
+                idIngreso, 
+                nroAcceso,
             ])
             console.log(data)
             return data[0]
@@ -78,7 +79,7 @@ export class Pte_IngresoModel{
 
     static async deletePte_Ingreso({nroAcceso}){
         try{
-            const data = await db.query('DELETE FROM paciente_ingreso WHERE nroAcceso=?',[nroAcceso])
+            const data = await db.query('DELETE FROM paciente_ingreso WHERE nroAcceso=? ',[nroAcceso])
             return data[0]
         }catch(error){
             console.log(error) // agregar manejo de errores
