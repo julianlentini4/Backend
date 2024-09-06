@@ -8,26 +8,34 @@ export class InformeModel{
         return data[0]
     }
 
-    static async getInformeByAccessNumber({nroAcceso}){
-        const [data] = await db.query('SELECT * FROM informe where nroAcceso=?',[nroAcceso])
+    static async getInformeById({idInforme}){
+        const [data] = await db.query('SELECT * FROM informe where idInforme=?',[idInforme])
         if(data.length==0) return null
         return data[0]
     }
 
     static async createInforme({input}){
         const {
+            idInforme,
             nroAcceso,
-            idPaciente,
             matricula,
             descripcion,
             fechaInicio,
             fechaFirmado = null,
             estado
         } = input
-        console.log(nroAcceso) //Visualización en consola de nroAcceso
+        console.log(idInforme) //Visualización en consola de idInforme
         try{ 
             //Modificar Consultas
-            const newMedico = await db.query('INSERT INTO informe(nroAcceso,idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado) VALUES(?,?,?,?,?,?,?)',[nroAcceso,idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado])
+            const newMedico = await db.query('INSERT INTO informe(idInforme,nroAcceso,matricula,descripcion,fechaInicio,fechaFirmado,estado) VALUES(?,?,?,?,?,?,?)',[
+                idInforme,
+                nroAcceso,
+                matricula,
+                descripcion,
+                fechaInicio,
+                fechaFirmado,
+                estado
+            ])
             return newMedico[0]
         }catch(error){
              console.log(error) //Agregar Manejo de errores 
@@ -37,8 +45,8 @@ export class InformeModel{
 
     static async updateInforme ({input}){
         const {
+            idInforme,
             nroAcceso,
-            idPaciente,
             matricula,
             descripcion,
             fechaInicio,
@@ -46,7 +54,15 @@ export class InformeModel{
             estado
         } = input
         try{
-            const data = await db.query('UPDATE informe SET idPaciente = ? , matricula = ? , descripcion = ? , fechaInicio = ? , fechaFirmado = ? , estado = ? WHERE nroAcceso=?',[idPaciente,matricula,descripcion,fechaInicio,fechaFirmado,estado,nroAcceso])
+            const data = await db.query('UPDATE informe SET nroAcceso = ? , matricula = ? , descripcion = ? , fechaInicio = ? , fechaFirmado = ? , estado = ? WHERE idInforme=?',[
+                nroAcceso,
+                matricula,
+                descripcion,
+                fechaInicio,
+                fechaFirmado,
+                estado,
+                idInforme
+            ])
             console.log(data)
             return data[0]
         }
@@ -56,9 +72,9 @@ export class InformeModel{
         return null       
     }
 
-    static async deleteInforme({nroAcceso}){
+    static async deleteInforme({idInforme}){
         try{
-            const data = await db.query('DELETE FROM informe WHERE nroAcceso=?',[nroAcceso])
+            const data = await db.query('DELETE FROM informe WHERE idInforme=?',[idInforme])
             return data[0]
         }catch(error){
             console.log(error) // agregar manejo de errores

@@ -11,13 +11,13 @@ export const createInformeRoutes = ({ informeModel }) => {
     //GET ALL MEDICOS
     informeRouter.get('/', informeController.getInformes)
     //GET MEDICO BY ID
-    informeRouter.get('/:nroAcceso', informeController.getInformeByAccesNumber)
+    informeRouter.get('/:idInforme', informeController.getInformeById)
     //CREATE NEW MEDICO
     informeRouter.post('/', informeController.createInforme)
     //UPDATE MEDICO
     informeRouter.put('/', informeController.updateInforme)
     //DELETE MEDICO
-    informeRouter.delete('/:nroAcceso', informeController.deleteInforme)
+    informeRouter.delete('/:idInforme', informeController.deleteInforme)
 
     return informeRouter 
 }

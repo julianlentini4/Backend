@@ -1,11 +1,11 @@
 import z from 'zod'
 //Validación de datos 
 const informeSchema = z.object({
+  idInforme: z.number().int({
+    message: "El id de informe debe ser un numero entero"
+  }),
   nroAcceso: z.string().refine(value => value.length == 7,{
     message: "El numero de acceso debe ser de a 7 digitos"
-  }),
-  idPaciente: z.number().int({
-    message: "El id de paciente debe ser un numero entero"
   }),
   matricula: z.number().int().positive().refine(value => value.toString().length <=5,{
     message: "La matricula no pude ser superior a 5 digitos"

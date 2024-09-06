@@ -10,9 +10,9 @@ export class InformeController{
         return res.json(data)
     }
 
-    getInformeByAccesNumber = async (req,res) => {
-        const {nroAcceso} = req.params
-        const data = await this.informeModel.getInformeByAccessNumber({ nroAcceso })
+    getInformeById = async (req,res) => {
+        const {idInforme} = req.params
+        const data = await this.informeModel.getInformeById({ idInforme })
         console.log(data)
         if(data) return res.status(200).json(data)        
         return res.status(404).json({message: 'Informe not found'})        
@@ -36,8 +36,8 @@ export class InformeController{
     }
 
     deleteInforme = async (req,res) => {
-        const {nroAcceso} = req.params
-        const informeDeleted = await this.informeModel.deleteInforme({nroAcceso: nroAcceso})
+        const {idInforme} = req.params
+        const informeDeleted = await this.informeModel.deleteInforme({idInforme: idInforme})
         if(informeDeleted) return res.status(201).json(informeDeleted)        
         return res.status(404).json('Error al eliminar Informe')
     }
