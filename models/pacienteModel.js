@@ -1,4 +1,4 @@
-import mySqlPool, { query } from "../config/db.js"
+import mySqlPool  from "../config/db.js";
 const db = mySqlPool
 
 export class PacienteModel{

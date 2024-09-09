@@ -16,8 +16,14 @@ export class InternacionModel {
         return internaciones[0];
     }
 
-    static async createInternacion({ nroSala, dni, fechaInternacion, fechaAlta }) {
-        // Validar que el nroSala y el dni existan
+    static async createInternacion({ input}) {
+        const{
+            dni,
+            nroSala,
+            fechaInternacion,
+            fechaAlta
+        } = input
+
         const sala = await SalaModel.getSalaById({ nro: nroSala });
         if (!sala) throw new Error('La sala especificada no existe.');
 
@@ -36,7 +42,14 @@ export class InternacionModel {
         return null;
     }
 
-    static async updateInternacion({ nroSala, dni, fechaInternacion, fechaAlta }) {
+    static async updateInternacion({ input }) {
+        const{
+            dni,
+            nroSala,
+            fechaInternacion,
+            fechaAlta
+        } = input
+        
         try {
             const data = await db.query(
                 'UPDATE internacion SET fechaInternacion = ?, fechaAlta = ? WHERE nroSala = ? AND dni = ?',
