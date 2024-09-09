@@ -1,5 +1,5 @@
 import mySqlPool  from "../config/db.js";
-import { PacienteModel } from "./pacienteModel.js";
+import { MedicoModel } from "./medicoeModel.js";
 import { AgendaModel } from "./agendaModel.js";
 import { PacienteModel } from "./pacienteModel.js";
 
