@@ -1,5 +1,7 @@
 import mySqlPool  from "../config/db.js";
-import { PacienteModel } from "./pacienteModel.js"; // Importamos el modelo de Paciente
+import { PacienteModel } from "./pacienteModel.js";
+import { AgendaModel } from "./agendaModel.js";
+import { PacienteModel } from "./pacienteModel.js";
 
 const db = mySqlPool
 
