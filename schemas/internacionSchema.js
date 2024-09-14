@@ -10,7 +10,7 @@ const nroSalaValidation = z.number().refine(async (nroSala) => {
 });
 
 const dniValidation = z.number().refine(async (dni) => {
-    const paciente = await PacienteModel.getPacienteByDni({ dni });
+    const paciente = await PacienteModel.getPacienteById({ dni });
     return !!paciente;
 }, {
     message: "No existe paciente con ese dni"

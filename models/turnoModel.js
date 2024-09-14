@@ -1,5 +1,5 @@
 import mySqlPool  from "../config/db.js";
-import { MedicoModel } from "./medicoeModel.js";
+import { MedicoModel } from "./medicoModel.js";
 import { AgendaModel } from "./agendaModel.js";
 import { PacienteModel } from "./pacienteModel.js";
 
@@ -83,3 +83,4 @@ export class TurnoModel{
         return null
     }
 }
+    

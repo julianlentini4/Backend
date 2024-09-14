@@ -1,7 +1,7 @@
 import z from 'zod'
 
 const especialidadSchema = z.object({
-    idEspecialdad: z.number(),
+    idEspecialidad: z.number(),
     nombre: z.string()
 })
 

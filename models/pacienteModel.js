@@ -7,13 +7,18 @@ export class PacienteModel{
         return pacientes
     }
 
-    static async getById ({dni}){
+    static async getPacienteById ({dni}){
         const [pacientes] = await db.query('SELECT * FROM paciente WHERE dni = ?',[dni])
         if(pacientes.length === 0) return null
         return pacientes[0]
     }
 
-    static async create({input}){
+    static async checkDniExists({ dni }) {
+        const [pacientes] = await db.query('SELECT * FROM paciente WHERE dni = ?', [dni]);
+        return pacientes.length > 0; // Si devuelve más de un resultado, el DNI ya existe
+    }
+    
+    static async createPaciente({input}){
         const{
             dni,
             nombre,
@@ -29,14 +34,13 @@ export class PacienteModel{
         }
     }
 
-    static async delete ({dni}){
+    static async deletePaciente ({dni}){
         const [pacientes] = await db.query('SELECT * FROM paciente WHERE dni = ?',[dni])
         if(pacientes.length === 0) return false
-
-        await db.query('DELETE FROM paciente WHERE id = ?',[dni])
+        await db.query('DELETE FROM paciente WHERE dni = ?',[dni])
     }
 
-    static async update ({input}){
+    static async updatePaciente ({input}){
         const{
             dni,
             nombre,

@@ -1,10 +1,17 @@
 import { Router } from 'express';
 import { InternacionController } from '../controllers/internacionController.js';
 
-export const internacionesRouter = Router();
+export const createInternacionRoutes = ({ internacionModel }) => {
+    const internacionesRouter = Router();
 
-internacionesRouter.get('/', InternacionController.getAll);
-internacionesRouter.get('/:nroSala/:dni', InternacionController.getById);
-internacionesRouter.post('/', InternacionController.create);
-internacionesRouter.patch('/:nroSala/:dni', InternacionController.update);
-internacionesRouter.delete('/:nroSala/:dni', InternacionController.delete);
+    const internacionController = new InternacionController({ internacionModel })
+
+    internacionesRouter.get('/', internacionController.getInternaciones);
+    internacionesRouter.get('/:nroSala/:dni', internacionController.getInternacionById);
+    internacionesRouter.post('/', internacionController.createInternacion);
+    internacionesRouter.patch('/:nroSala/:dni', internacionController.updateInternacion);
+    internacionesRouter.delete('/:nroSala/:dni', internacionController.deleteInternacion);
+
+    return internacionesRouter
+}
+

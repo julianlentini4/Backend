@@ -1,7 +1,7 @@
-import z from 'zod';
+import z from 'zod'
 
 const turnoSchema = z.object({
-  fechaHoraTurno: z.string(), // Asegúrate de que sea un formato de fecha válido
+  fechaHoraTurno: z.string(),
   estado: z.enum(['Pendiente', 'Confirmado', 'Finalizado', 'Cancelado']),
   dni: z.number().int().positive(),
   matricula: z.number().int().positive(),

@@ -1,8 +1,8 @@
 import { TurnoModel } from "../models/turnoModel.js";
 
 export class TurnoController{
-    constructor({ TurnoModel }) {
-        this.TurnoModel = TurnoModel
+    constructor({ turnoModel }) {
+        this.turnoModel = turnoModel
     }
 
     static async getTurnos(req, res) {

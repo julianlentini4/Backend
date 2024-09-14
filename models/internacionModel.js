@@ -16,7 +16,7 @@ export class InternacionModel {
         return internaciones[0];
     }
 
-    static async createInternacion({ input}) {
+    static async createInternacion({input}) {
         const{
             dni,
             nroSala,
@@ -24,11 +24,13 @@ export class InternacionModel {
             fechaAlta
         } = input
 
-        const sala = await SalaModel.getSalaById({ nro: nroSala });
-        if (!sala) throw new Error('La sala especificada no existe.');
+        const sala = await SalaModel.getSalaById({ nro: nroSala })
+        if (!sala) throw new Error('La sala especificada no existe.')
 
-        const paciente = await PacienteModel.getPacienteByDni({ dni });
-        if (!paciente) throw new Error('El paciente especificado no existe.');
+        const paciente = await PacienteModel.getPacienteById({ dni });
+        if (!paciente) throw new Error('El paciente especificado no existe.')
+
+        if (fechaAlta && new Date(fechaAlta) < new Date(fechaInternacion)) throw new Error('La fecha de alta no puede ser anterior a la fecha de internación.')
 
         try {
             const data = await db.query(
@@ -44,8 +46,8 @@ export class InternacionModel {
 
     static async updateInternacion({ input }) {
         const{
-            dni,
             nroSala,
+            dni,
             fechaInternacion,
             fechaAlta
         } = input

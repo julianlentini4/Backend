@@ -1,11 +1,15 @@
 import { Router } from 'express'
 import { SalaController } from '../controllers/salaController.js'
 
-export const salasRouter = Router()
+export const createSalaRoutes = ({ salaModel }) => {
+    const salaRouter = Router()
 
-salasRouter.get('/',SalaController.getAll)
-salasRouter.get('/:id',SalaController.getById)
-salasRouter.patch('/:id',SalaController.update)
+    const salaController = new SalaController({ salaModel })
 
+    salaRouter.get('/',salaController.getSalas)
+    salaRouter.get('/:id',salaController.getSalaById)
+    salaRouter.patch('/:id',salaController.updateSala)
 
+    return salaRouter 
+}
 

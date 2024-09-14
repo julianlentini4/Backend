@@ -1,10 +1,16 @@
 import { Router } from 'express'
-import { EspecialidadController } from '../controladores/especialidadController.js'
+import { EspecialidadController } from '../controllers/especialidadController.js'
 
-export const especialidadesRouter = Router()
+export const createEspecialidadRoutes = ({ especialidadModel }) => {
+    const especialidadesRouter = Router()
 
-especialidadesRouter.get('/',EspecialidadController.getAll)
-especialidadesRouter.get('/:id',EspecialidadController.getById)
-especialidadesRouter.post('/', EspecialidadController.create)
-especialidadesRouter.patch('/:id',EspecialidadController.update)
-especialidadesRouter.delete('/:id',EspecialidadController.delete)
+    const especialidadController = new EspecialidadController({ especialidadModel })
+
+    especialidadesRouter.get('/',especialidadController.getEspecialidad)
+    especialidadesRouter.get('/:id',especialidadController.getEspecialidadById)
+    especialidadesRouter.post('/', especialidadController.createEspecialidad)
+    especialidadesRouter.patch('/:id',especialidadController.updateEspecialidad)
+    especialidadesRouter.delete('/:id',especialidadController.deleteEspecialidad)
+    return especialidadesRouter
+}
+
