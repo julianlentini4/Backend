@@ -1,6 +1,6 @@
 import z from 'zod'
-import { SalaModel } from '../models/salaModel.js'
-import { PacienteModel } from '../models/pacienteModel.js'
+import { SalaModel } from '../modelsMysql/salaModel.js'
+import { PacienteModel } from '../modelsMysql/pacienteModel.js'
 
 const nroSalaValidation = z.number().refine(async (nroSala) => {
     const sala = await SalaModel.getSalaById({ nro: nroSala });

@@ -1,5 +1,5 @@
 import { validateInternacion, validatePartialInternacion } from "../schemas/internacionSchema.js";
-import { InternacionModel } from "../models/internacionModel.js";
+import { InternacionModel } from "../modelsMysql/internacionModel.js";
 
 export class InternacionController {
     constructor({ internacionModel }) {

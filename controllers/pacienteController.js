@@ -1,5 +1,5 @@
 import { validatePaciente, validatePartialPaciente } from "../schemas/pacienteSchema.js";
-import { PacienteModel } from "../models/pacienteModel.js";
+import { PacienteModel } from "../modelsMysql/pacienteModel.js";
 
 export class PacienteController{
     constructor({ pacienteModel }) {

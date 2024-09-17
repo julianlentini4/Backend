@@ -1,5 +1,5 @@
 import { validateEspecialidad, validatePartialEspecialidad } from "../schemas/especialidadSchema.js"
-import { EspecialidadModel } from "../models/especialidadModel.js"
+import { EspecialidadModel } from "../modelsMysql/especialidadModel.js"
 export class EspecialidadController{
     constructor({ especialidadModel }) {
         this.especialidadModel = especialidadModel

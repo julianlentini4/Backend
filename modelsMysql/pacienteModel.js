@@ -50,7 +50,7 @@ export class PacienteModel{
         } = input
 
         try{
-            const data = await db.query('UPDATE paciente SET dni = ?, nombre = ?, apellido = ?, mail = ?, obraSocial = ? WHERE id = ?',[dni,nombre,apellido,mail,obraSocial])
+            const data = await db.query('UPDATE paciente SET nombre = ?, apellido = ?, mail = ?, obraSocial = ? WHERE dni = ?',[nombre,apellido,mail,obraSocial,dni])
             return data[0]
         }catch(error){
             console.log(error)

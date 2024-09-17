@@ -18,12 +18,12 @@ export class MedicoModel{
     static async createMedico({input}){
         const {
             matricula,
-            name,
+            nombre,
             idespecialidad
         } = input
         console.log(matricula) //Visualización en consola de matricula
         try{ 
-            const newMedico = await db.query('INSERT INTO medico(matricula,name,idespecialidad) VALUES(?,?,?)',[matricula,name,idespecialidad])
+            const newMedico = await db.query('INSERT INTO medico(matricula,nombre,idespecialidad) VALUES(?,?,?)',[matricula,nombre,idespecialidad])
             return newMedico[0]
         }catch(error){
              console.log(error) //Agregar Manejo de errores 
@@ -34,11 +34,11 @@ export class MedicoModel{
     static async updateMedico ({input}){
         const {
             matricula,
-            name,
+            nombre,
             idespecialidad
         } = input
         try{
-            const data = await db.query('UPDATE medico SET name=? , idespecialidad=? WHERE matricula=?',[name,idespecialidad,matricula])
+            const data = await db.query('UPDATE medico SET nombre=? , idespecialidad=? WHERE matricula=?',[nombre,idespecialidad,matricula])
             console.log(data)
             return data[0]
         }

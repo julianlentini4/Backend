@@ -18,8 +18,8 @@ export class Dia_AgendaController{
         return res.status(404).json({message: 'Dia_Agenda not found'})        
     }
     getDia_AgendaByIdDia = async (req,res) => {
-        const {idDia} = req.params
-        const data = await this.dia_AgendaModel.getDia_AgendaByIdDia({ idDia })
+        const {nroDia} = req.params
+        const data = await this.dia_AgendaModel.getDia_AgendaByIdDia({ nroDia })
         console.log(data)
         if(data) return res.status(200).json(data)        
         return res.status(404).json({message: 'Dia_Agenda not found'})        

@@ -1,5 +1,5 @@
 import { validateSala, validatePartialSala } from "../schemas/salaSchema.js";
-import { SalaModel } from "../models/salaModel.js";
+import { SalaModel } from "../modelsMysql/salaModel.js";
 
 export class SalaController{
     constructor({ salaModel }) {

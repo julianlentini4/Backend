@@ -1,4 +1,4 @@
-import { Router } from 'express'
+/*import { Router } from 'express'
 import { TurnoController } from '../controllers/turnoController.js'
 
 //routes
@@ -18,4 +18,4 @@ export const createTurnoRoutes = ({ turnoModel }) => {
 
     return turnoRouter 
 }
-
+*/
