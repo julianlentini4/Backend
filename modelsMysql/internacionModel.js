@@ -1,7 +1,4 @@
 import mySqlPool from "../config/db.js";
-import { SalaModel } from "./salaModel.js";
-import { PacienteModel } from "./pacienteModel.js";
-
 const db = mySqlPool;
 
 export class InternacionModel {
@@ -12,7 +9,7 @@ export class InternacionModel {
 
     static async getInternacionById({ nroSala, dni }) {
         const [internaciones] = await db.query('SELECT * FROM internacion WHERE nroSala = ? AND dni = ?', [nroSala, dni]);
-        if (internaciones.length === 0) return null;
+        if (internaciones.length == 0) return null;
         return internaciones[0];
     }
 
@@ -23,19 +20,15 @@ export class InternacionModel {
             fechaInternacion,
             fechaAlta
         } = input
-
-        const sala = await SalaModel.getSalaById({ nro: nroSala })
-        if (!sala) throw new Error('La sala especificada no existe.')
-
-        const paciente = await PacienteModel.getPacienteById({ dni });
-        if (!paciente) throw new Error('El paciente especificado no existe.')
-
-        if (fechaAlta && new Date(fechaAlta) < new Date(fechaInternacion)) throw new Error('La fecha de alta no puede ser anterior a la fecha de internación.')
-
         try {
-            const data = await db.query(
-                'INSERT INTO internacion (nroSala, dni, fechaInternacion, fechaAlta) VALUES (?, ?, ?, ?)',
-                [nroSala, dni, fechaInternacion, fechaAlta]
+            if (fechaAlta && new Date(fechaAlta) < new Date(fechaInternacion)) throw new Error('La fecha de alta no puede ser anterior a la fecha de internación.')
+            const data = await db.query('INSERT INTO internacion (nroSala, dni, fechaInternacion, fechaAlta) VALUES (?, ?, ?, ?)',
+            [
+                nroSala, 
+                dni, 
+                fechaInternacion, 
+                fechaAlta
+            ]
             );
             return data[0];
         } catch (error) {
@@ -64,9 +57,13 @@ export class InternacionModel {
         return null;
     }
 
-    static async deleteInternacion({ nroSala, dni }) {
+    static async deleteInternacion({input}) {
+        const{
+            nroSala,
+            dni
+        } = input
         try {
-            const data = await db.query('DELETE FROM internacion WHERE nroSala = ? AND dni = ?', [nroSala, dni]);
+            const data = await db.query('DELETE FROM internacion WHERE nroSala = ? AND dni = ?',[nroSala, dni]);
             return data[0];
         } catch (error) {
             console.log(error);

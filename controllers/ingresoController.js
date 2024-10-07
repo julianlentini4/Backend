@@ -1,4 +1,4 @@
-import {validateIngreso} from "../schemas/ingresoSchema.js";
+import {validateIngreso, validatePartialIngreso} from "../schemas/ingresoSchema.js";
 
 export class IngresoController{
     constructor({ ingresoModel }) {
@@ -19,9 +19,8 @@ export class IngresoController{
     }
 
     createIngreso = async (req,res) => {
-        const resultValidate = await validateIngreso(req.body)
+        const resultValidate = await validatePartialIngreso(req.body)
         if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
-        console.log(resultValidate)// objet retornado de la validacion 
         const newIngreso = await this.ingresoModel.createIngreso({input: resultValidate.data})
         if(newIngreso) return res.status(201).json(newIngreso)        
         return res.status(404).json('Error al crear Ingreso') 

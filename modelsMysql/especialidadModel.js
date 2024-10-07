@@ -15,21 +15,27 @@ export class EspecialidadModel{
 
     static async createEspecialidad ({input}){
         const{
-            idEspecialidad,
             nombre
         } = input
 
         try{
-            await db.query('INSERT INTO especialidad (idEspecialidad,nombre) VALUES (? , ?)',[idEspecialidad,nombre])
+            const data = await db.query('INSERT INTO especialidad (nombre) VALUES (?)',[nombre])
+            return data[0]
         }catch(error){
             console.log(error)
         }
     }
 
     static async deleteEspecialidad ({idEspecialidad}){
-        const [especialidades] = await db.query('SELECT * FROM especialidad WHERE idEspecialidad = ?',[idEspecialidad])
-        if(especialidades.length === 0) return false
-        await db.query('DELETE FROM especialidad WHERE id = ?',[idEspecialidad])
+        try{
+            //const [especialidades] = await db.query('SELECT * FROM especialidad WHERE idEspecialidad = ?',[idEspecialidad])
+            //if(especialidades.length === 0) return false
+            const data = await db.query('DELETE FROM especialidad WHERE idEspecialidad = ?',[idEspecialidad])
+            return data[0]
+        }catch(error){
+            console.log(error)
+        }
+        return null
     }
 
     static async updateEspecialidad ({input}){
@@ -38,7 +44,7 @@ export class EspecialidadModel{
             nombre,
         } = input
         try{
-            const data = await db.query('UPDATE especialidad SET idEspecialidad = ?, nombre = ? WHERE idEspecialidad = ?',[idEspecialidad,nombre])
+            const data = await db.query('UPDATE especialidad SET nombre = ? WHERE idEspecialidad = ?',[nombre,idEspecialidad])
             return data[0]
         }catch(error){
             console.log(error)

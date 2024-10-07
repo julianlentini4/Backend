@@ -20,7 +20,7 @@ export class MedicoController{
     createMedico = async (req,res) => {
         const resultValidate = await validateMedico(req.body)
         if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
-        console.log(resultValidate)// objet retornado de la validacion 
+        //console.log(resultValidate)// objet retornado de la validacion 
         const newMedico = await this.medicoModel.createMedico({input: resultValidate.data})
         if(newMedico) return res.status(201).json(newMedico)        
         return res.status(404).json('Error al crear medico') 

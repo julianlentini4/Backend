@@ -1,5 +1,4 @@
-import { validatePaciente, validatePartialPaciente } from "../schemas/pacienteSchema.js";
-import { PacienteModel } from "../modelsMysql/pacienteModel.js";
+import { validatePaciente} from "../schemas/pacienteSchema.js";
 
 export class PacienteController{
     constructor({ pacienteModel }) {
@@ -21,23 +20,23 @@ export class PacienteController{
     createPaciente = async (req,res) => {
         const result = validatePaciente(req.body)
         if(!result.success) return res.status(400).json({error: JSON.parse(result.error.message)})
-        const dniExists = await this.pacienteModel.checkDniExists({ dni: result.data.dni });
-        if (dniExists) return res.status(400).json({ error: 'El DNI ya existe en el sistema' });
         const newPaciente = await this.pacienteModel.createPaciente({input:result.data})
+        if(!newPaciente) return res.status(404).json({message: 'Create Paciente Not Found'})
         res.status(201).json(newPaciente)
     }
 
     deletePaciente = async (req, res) => {
         const {dni} = req.params
         const result = await this.pacienteModel.deletePaciente({dni})
-        if(result == false) return res.status(404).json({ message: 'Paciente not found' })
-        return res.json({ message: 'Paciente deleted' })
+        if(!result) return res.status(404).json({ message: 'Paciente not found' })
+        return res.json({ message: 'Paciente deleted' }) 
     }
 
     updatePaciente = async (req,res) =>{
-        const result = validatePartialPaciente(req.body)
+        const result = validatePaciente(req.body)
         if(!result.success) return res.status(400).json({error: JSON.parse(result.error.message)})
-        const updatepaciente = await this.pacienteModel.updatePaciente({ input: result.data})
-        return res.json(updatepaciente)
+        const updatePaciente = await this.pacienteModel.updatePaciente({ input: result.data})
+        if(!updatePaciente) res.status(404).json({ message: 'Paciente not Updated' })
+        return res.json(updatePaciente)
     }
 }

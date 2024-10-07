@@ -16,7 +16,6 @@ export class InformeModel{
 
     static async createInforme({input}){
         const {
-            idInforme,
             nroAcceso,
             matricula,
             descripcion,
@@ -24,11 +23,10 @@ export class InformeModel{
             fechaFirmado = null,
             estado
         } = input
-        console.log(idInforme) //Visualización en consola de idInforme
+        //console.log(idInforme) //Visualización en consola de idInforme
         try{ 
             //Modificar Consultas
-            const newMedico = await db.query('INSERT INTO informe(idInforme,nroAcceso,matricula,descripcion,fechaInicio,fechaFirmado,estado) VALUES(?,?,?,?,?,?,?)',[
-                idInforme,
+            const newMedico = await db.query('INSERT INTO informe(nroAcceso,matricula,descripcion,fechaInicio,fechaFirmado,estado) VALUES(?,?,?,?,?,?)',[
                 nroAcceso,
                 matricula,
                 descripcion,

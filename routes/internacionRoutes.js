@@ -7,10 +7,10 @@ export const createInternacionRoutes = ({ internacionModel }) => {
     const internacionController = new InternacionController({ internacionModel })
 
     internacionesRouter.get('/', internacionController.getInternaciones);
-    internacionesRouter.get('/:nroSala/:dni', internacionController.getInternacionById);
+    internacionesRouter.get('/items', internacionController.getInternacionById);
     internacionesRouter.post('/', internacionController.createInternacion);
-    internacionesRouter.patch('/:nroSala/:dni', internacionController.updateInternacion);
-    internacionesRouter.delete('/:nroSala/:dni', internacionController.deleteInternacion);
+    internacionesRouter.put('/', internacionController.updateInternacion);
+    internacionesRouter.delete('/items', internacionController.deleteInternacion);
 
     return internacionesRouter
 }

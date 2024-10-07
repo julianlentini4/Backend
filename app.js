@@ -15,9 +15,11 @@ import { createSalaRoutes } from './routes/salaRoutes.js';
 import { createPacienteRoutes } from './routes/pacienteRoutes.js';
 import { createInternacionRoutes } from './routes/internacionRoutes.js';
 import { createEspecialidadRoutes } from './routes/especialidadRoutes.js';
+import { createMedico_EspecialidadRoutes } from './routes/medico_EspecialidadRoutes.js';
+
 
 //main Function
-export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacionModel, especialidadModel, medicoModel, informeModel, pte_IngresoModel, ingresoModel, agendaModel, diaModel, dia_AgendaModel }) => {
+export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacionModel, especialidadModel, medicoModel, informeModel, pte_IngresoModel, ingresoModel, agendaModel, diaModel, dia_AgendaModel, medico_EspecialidadModel }) => {
   const app = express()
   const port = process.env.PORT ?? 3000 //Es para que tome el puerto de algun posible hosting y en caso de no tenerlo que tome el 3000 por defecto
   app.use(json());
@@ -34,6 +36,7 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
   app.use('/agenda', createAgendaRoutes({ agendaModel }));
   app.use('/dia', createDiaRoutes({ diaModel }));
   app.use('/dia_agenda', createDia_AgendaRoutes({ dia_AgendaModel }));
+  app.use('/medico_especialidad', createMedico_EspecialidadRoutes({ medico_EspecialidadModel }));
 
   app.get('/', (_req, res) => {
     res.send('<h1>Hello World!')

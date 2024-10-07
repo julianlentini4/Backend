@@ -7,8 +7,10 @@ export const createSalaRoutes = ({ salaModel }) => {
     const salaController = new SalaController({ salaModel })
 
     salaRouter.get('/',salaController.getSalas)
-    salaRouter.get('/:id',salaController.getSalaById)
-    salaRouter.patch('/:id',salaController.updateSala)
+    salaRouter.get('/:nroSala',salaController.getSalaById)
+    salaRouter.post('/',salaController.createSala)
+    salaRouter.put('/',salaController.updateSala)
+    salaRouter.delete('/:nroSala',salaController.deleteSala)
 
     return salaRouter 
 }

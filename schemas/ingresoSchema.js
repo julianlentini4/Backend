@@ -17,5 +17,5 @@ export async function validateIngreso (objet) {
 }
 
 export function validatePartialIngreso (objet) {
-  return ingresoSchema.partial().safeParse(objet)
+  return ingresoSchema.partial({idIngreso: true}).safeParseAsync(objet)
 }

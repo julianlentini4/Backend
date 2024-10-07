@@ -9,7 +9,7 @@ export const createPacienteRoutes = ({ pacienteModel }) => {
     pacientesRouter.get('/',pacienteController.getPacientes)
     pacientesRouter.get('/:dni',pacienteController.getPacienteById)
     pacientesRouter.post('/', pacienteController.createPaciente)
-    pacientesRouter.patch('/:dni',pacienteController.updatePaciente)
+    pacientesRouter.put('/',pacienteController.updatePaciente)
     pacientesRouter.delete('/:dni',pacienteController.deletePaciente)
 
     return pacientesRouter

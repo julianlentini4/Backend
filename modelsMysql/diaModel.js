@@ -19,7 +19,6 @@ export class DiaModel{
             nroDia,
             nombre
         } = input
-        console.log(nroDia) //Visualización en consola de nroDia
         try{ 
             //Modificar Consultas
             const newDia = await db.query('INSERT INTO dia(nroDia,nombre) VALUES(?,?)',[

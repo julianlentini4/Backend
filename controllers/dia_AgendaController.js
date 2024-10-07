@@ -37,6 +37,6 @@ export class Dia_AgendaController{
     deleteDia_Agenda = async (req,res) => {
         const Dia_AgendaDeleted = await this.dia_AgendaModel.deleteDia_Agenda({input: req.query})
         if(Dia_AgendaDeleted) return res.status(201).json(Dia_AgendaDeleted)        
-        return res.status(404).json('Error al eliminar Agenda')
+        return res.status(404).json('Error al eliminar Dia_Agenda')
     }
 }

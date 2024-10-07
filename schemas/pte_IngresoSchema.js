@@ -1,7 +1,7 @@
 import z from 'zod'
 //Validación de datos 
 const pte_IngresoSchema = z.object({
-    nroAcceso: z.string().refine(value => value.length == 7,{
+    nroAcceso: z.number().int({
         message: "El numero de acceso debe ser de a 7 digitos"
     }),
     descripcion: z.string({
@@ -20,8 +20,8 @@ const pte_IngresoSchema = z.object({
     tipo: z.string().refine(value => value.length == 1,{
         message: "El tipo de ingreso no pude ser superior a 1 caracter"
     }),
-    idPaciente: z.number().int().positive().refine(value => value.toString().length <= 6,{
-        message: "El id Paciente no pude ser superior a 6 digitos"
+    dni: z.number().int().positive({
+        message: "El dni de Paciente debe ser entero"
     }),
     idIngreso: z.number().int().positive().refine(value => value.toString().length <= 6,{
         message: "El id ingreso no pude ser superior a 6 digitos"
@@ -32,6 +32,6 @@ export async function validatePte_Ingreso (objet) {
   return pte_IngresoSchema.safeParseAsync(objet)
 }
 
-export function validatePartialIngreso (objet) {
-  return pte_IngresoSchema.partial().safeParse(objet)
+export function validatePartialPte_Ingreso (objet) {
+  return pte_IngresoSchema.partial({nroAcceso: true}).safeParseAsync(objet)
 }

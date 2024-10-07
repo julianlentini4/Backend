@@ -13,10 +13,10 @@ export class PacienteModel{
         return pacientes[0]
     }
 
-    static async checkDniExists({ dni }) {
+    /*static async checkDniExists({ dni }) {
         const [pacientes] = await db.query('SELECT * FROM paciente WHERE dni = ?', [dni]);
         return pacientes.length > 0; // Si devuelve más de un resultado, el DNI ya existe
-    }
+    }*/
     
     static async createPaciente({input}){
         const{
@@ -28,16 +28,29 @@ export class PacienteModel{
         } = input
 
         try{
-            await db.query('INSERT INTO paciente (dni,nombre,apellido,mail,obraSocial) VALUES (? , ? , ? , ? , ? )',[dni,nombre,apellido,mail,obraSocial])
+            const data= await db.query('INSERT INTO paciente (dni,nombre,apellido,mail,obraSocial) VALUES (? , ? , ? , ? , ? )',
+            [
+                dni,
+                nombre,
+                apellido,
+                mail,
+                obraSocial
+            ])
+            return data[0]
         }catch(error){
             console.log(error)
         }
+        return null
     }
 
     static async deletePaciente ({dni}){
-        const [pacientes] = await db.query('SELECT * FROM paciente WHERE dni = ?',[dni])
-        if(pacientes.length === 0) return false
-        await db.query('DELETE FROM paciente WHERE dni = ?',[dni])
+        try{
+            const data = await db.query('DELETE FROM paciente WHERE dni = ?',[dni])
+            return data[0]
+        }catch(error){
+            console.log(error) //AGREGAR VALIDACION DE ERRORES
+        }
+    return null 
     }
 
     static async updatePaciente ({input}){
@@ -46,11 +59,17 @@ export class PacienteModel{
             nombre,
             apellido,
             mail,
-            obraSocial
+            obraSocial 
         } = input
-
         try{
-            const data = await db.query('UPDATE paciente SET nombre = ?, apellido = ?, mail = ?, obraSocial = ? WHERE dni = ?',[nombre,apellido,mail,obraSocial,dni])
+            const data = await db.query('UPDATE paciente SET nombre = ?, apellido = ?, mail = ?, obraSocial = ? WHERE dni = ?',
+            [
+                nombre,
+                apellido,
+                mail,
+                obraSocial,
+                dni
+            ])
             return data[0]
         }catch(error){
             console.log(error)

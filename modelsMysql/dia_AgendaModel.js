@@ -23,15 +23,15 @@ export class Dia_AgendaModel{
         const {
             idAgenda,
             nroDia,
-            hora,
+            horaAtencion
         } = input
         console.log(idAgenda) //Visualización en consola de idAgenda
         try{ 
             //Modificar Consultas
-            const newAgenda = await db.query('INSERT INTO dia_agenda(idAgenda,nroDia,hora) VALUES(?,?,?)',[
+            const newAgenda = await db.query('INSERT INTO dia_agenda(idAgenda,nroDia,horaAtencion) VALUES(?,?,?)',[
                 idAgenda,
                 nroDia,
-                hora
+                horaAtencion
             ])
             return newAgenda[0]
         }catch(error){
@@ -45,9 +45,9 @@ export class Dia_AgendaModel{
            const{
             idAgenda,
             nroDia,
-            hora
+            horaAtencion
         } = input
-            const data = await db.query('DELETE FROM dia_agenda WHERE idAgenda = ? and nroDia = ? and hora = ?',[idAgenda, nroDia, hora])
+            const data = await db.query('DELETE FROM dia_agenda WHERE idAgenda = ? and nroDia = ? and horaAtencion = ?',[idAgenda, nroDia, horaAtencion])
             return data[0]
         }catch(error){
             console.log(error) // agregar manejo de errores

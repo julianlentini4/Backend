@@ -10,15 +10,15 @@ export const createMedicoRoutes = ({ medicoModel }) => {
     const medicoController = new MedicoController({ medicoModel })
 
     //GET ALL MEDICOS
-    medicoRouter.get('/getall', medicoController.getMedicos)
+    medicoRouter.get('/', medicoController.getMedicos)
     //GET MEDICO BY ID
-    medicoRouter.get('/getMedico/:matricula', medicoController.getMedicoByMatricula)
+    medicoRouter.get('/:matricula', medicoController.getMedicoByMatricula)
     //CREATE NEW MEDICO
-    medicoRouter.post('/create', medicoController.createMedico)
+    medicoRouter.post('/', medicoController.createMedico)
     //UPDATE MEDICO
-    medicoRouter.put('/update', medicoController.updateMedico)
+    medicoRouter.put('/', medicoController.updateMedico)
     //DELETE MEDICO
-    medicoRouter.delete('/delete/:matricula', medicoController.deleteMedico)
+    medicoRouter.delete('/:matricula', medicoController.deleteMedico)
 
     return medicoRouter 
 }

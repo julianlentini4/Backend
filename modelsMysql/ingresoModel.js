@@ -16,15 +16,12 @@ export class IngresoModel{
 
     static async createIngreso({input}){
         const {
-            idIngreso,
             tipo,
             descripcion,
         } = input
-        console.log(idIngreso) //Visualización en consola de idIngreso
         try{ 
             //Modificar Consultas
-            const newIngreso = await db.query('INSERT INTO ingreso(idIngreso,tipo,descripcion) VALUES(?,?,?)',[
-                idIngreso,
+            const newIngreso = await db.query('INSERT INTO ingreso(tipo,descripcion) VALUES(?,?)',[
                 tipo,
                 descripcion
             ])

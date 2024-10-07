@@ -4,10 +4,10 @@ const dia_AgendaSchema = z.object({
   idAgenda: z.number().int({
     message: "El id de agenda debe ser un numero entero"
   }),
-  idDia: z.number().int({
+  nroDia: z.number().int({
     message: "El id de Dia debe ser un numero entero"
   }),
-  hora: z.string().time({
+  horaAtencion: z.string().time({
     message: "La hora no esta en el formato correcto"
   })
 })

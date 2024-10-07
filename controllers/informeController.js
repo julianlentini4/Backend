@@ -1,4 +1,4 @@
-import {validateInforme} from "../schemas/informeSchema.js";
+import {validateInforme, validatePartialinforme} from "../schemas/informeSchema.js";
 
 export class InformeController{
     constructor({ informeModel }) {
@@ -19,7 +19,7 @@ export class InformeController{
     }
 
     createInforme = async (req,res) => {
-        const resultValidate = await validateInforme(req.body)
+        const resultValidate = await validatePartialinforme(req.body)
         if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
         console.log(resultValidate)// objet retornado de la validacion 
         const newInforme = await this.informeModel.createInforme({input: resultValidate.data})
