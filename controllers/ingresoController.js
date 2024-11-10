@@ -15,7 +15,7 @@ export class IngresoController{
         const data = await this.ingresoModel.getIngresoById({ idIngreso })
         console.log(data)
         if(data) return res.status(200).json(data)        
-        return res.status(404).json({message: 'Ingreso not found'})        
+        return res.status(404).json({message:'No existe Ingreso'})        
     }
 
     createIngreso = async (req,res) => {

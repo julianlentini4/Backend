@@ -114,7 +114,47 @@ CREATE TABLE internacion (
     FOREIGN KEY (nroSala) REFERENCES Sala(nroSala) ON DELETE CASCADE
     );
     
+    CREATE TABLE users (
+	username varchar(10) unique, 
+    clave varchar(60) unique, 
+    tipo varchar(20), 
+    sector varchar(20),
+    descripcion varchar(20), 
+    PRIMARY KEY (username) 
+    );
+
+    CREATE TABLE Access (
+    apiUrl varchar(20) primary key, 
+    descripcion varchar(20)
+    );
+    
+	CREATE TABLE Users_Access (
+	apiUrl varchar(20), 
+	tipoUsuario varchar(15),
+    method varchar(6),
+    PRIMARY KEY (tipo,apiUrl,method),
+    FOREIGN KEY (apiUrl) REFERENCES Access(apiUrl) ON DELETE CASCADE
+    );
+    
     -- INSERT VALORES -- Orden correcto
+INSERT INTO Access (ApiUrl, descripcion) 
+VALUES 
+('/sala', 'Sala'),
+('/paciente', 'Paciente'),
+('/internacion', 'Internacion');   
+    
+INSERT INTO users (username, clave, tipo, sector, descripcion) 
+VALUES 
+('JULIAN', '123456', 'ADMIN', 'SISTEMAS', 'JULIAN LENTINI'),
+('JUANMA', '123455', 'OPERADOR', 'CONSULTORIOS', 'JUAN MANUEL'),
+('CIRA', '123454', 'ADMIN', 'SISTEMAS', 'CIRA LENTINI');
+
+INSERT INTO Users_Access(apiUrl,username) 
+VALUES 
+('/sala', 'JUANMA'),
+('/internacion', 'CIRA'),
+('/paciente', 'PAPAa');
+    
 INSERT INTO Paciente (dni, nombre, apellido, mail, obraSocial) 
 VALUES 
 (44291173, 'Juan', 'Pérez', 'juan.perez@example.com', 'OSDE'),
@@ -199,3 +239,7 @@ VALUES
 (44299173, 102, '2024-09-18', NULL),
 (44301174, 103, '2024-09-19', '2024-09-22'),
 (44302175, 104, '2024-09-20', NULL);
+
+INSERT INTO users_access (apiUrl, tipoUsuario, method)
+VALUES
+('/users','ADMIN','GET')

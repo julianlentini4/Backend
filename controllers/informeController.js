@@ -12,10 +12,11 @@ export class InformeController{
 
     getInformeById = async (req,res) => {
         const {idInforme} = req.params
+        console.log(idInforme)
         const data = await this.informeModel.getInformeById({ idInforme })
         console.log(data)
         if(data) return res.status(200).json(data)        
-        return res.status(404).json({message: 'Informe not found'})        
+        return res.status(404).json({message:'No existe Informe'})      
     }
 
     createInforme = async (req,res) => {

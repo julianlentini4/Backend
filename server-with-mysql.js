@@ -13,6 +13,7 @@ import { AgendaModel } from "./modelsMysql/agendaModel.js";
 import { DiaModel } from "./modelsMysql/diaModel.js";
 import { Dia_AgendaModel } from "./modelsMysql/dia_AgendaModel.js";
 import { Medico_EspecialidadModel } from "./modelsMysql/medico_EspecialidadModel.js";
+import { UsersModel } from "./modelsMysql/usersModel.js";
 
 createApp({
     especialidadModel: EspecialidadModel,
@@ -27,5 +28,6 @@ createApp({
     agendaModel: AgendaModel,
     diaModel: DiaModel,
     dia_AgendaModel: Dia_AgendaModel, 
-    medico_EspecialidadModel: Medico_EspecialidadModel
+    medico_EspecialidadModel: Medico_EspecialidadModel,
+    usersModel: UsersModel
 }) 
