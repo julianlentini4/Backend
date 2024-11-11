@@ -9,7 +9,7 @@ export class UsersModel{
     }
 
     static async getUsersByUsername({username}){
-        const [data] = await db.query('SELECT * FROM Users where username like ? ',[`%${username}%`]) //corregir cuando realicemos la producción del token
+        const [data] = await db.query('SELECT * FROM Users where username = ? ',[username]) //corregir cuando realicemos la producción del token
         if(data.length==0) return null
         return data[0]
     }
@@ -46,6 +46,7 @@ export class UsersModel{
             sector,
             descripcion
         } = input
+        console.log(input)
         try{
             const data = await db.query('UPDATE Users SET clave = ? ,tipo = ?, sector = ?, descripcion = ? WHERE username = ?',[                
                 clave,
