@@ -34,7 +34,7 @@ export class UsersController{
 
     updateUsers = async (req,res) => {
         const resultValidate = await validateUsers(req.body)
-        if(!resultValidate.success) return res.status(400).json({message: JSON.parse(resultValidate.error.message)})
+        if(!resultValidate.success) return res.status(400).json({message: 'Error de validacion de datos de entrada'/*JSON.parse(resultValidate.error.message)*/})
         if(!await this.usersModel.getUsersByUsername({username: resultValidate.data.username})) return res.status(404).json('El usuario no existe')
         const {clave, ...data} = resultValidate.data
         const hashPassword = await bcrypt.hash(clave,10)

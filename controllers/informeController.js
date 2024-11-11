@@ -21,25 +21,25 @@ export class InformeController{
 
     createInforme = async (req,res) => {
         const resultValidate = await validatePartialinforme(req.body)
-        if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
+        if(!resultValidate.success) return res.status(400).json({message: JSON.parse(resultValidate.error.message)})
         console.log(resultValidate)// objet retornado de la validacion 
         const newInforme = await this.informeModel.createInforme({input: resultValidate.data})
-        if(newInforme) return res.status(201).json(newInforme)        
-        return res.status(404).json('Error al crear Informe') 
+        if(newInforme) return res.status(201).json({message:'Informe Creado'})        
+        return res.status(404).json({message:'Error al crear Informe'}) 
     }
 
     updateInforme = async (req,res) => {
         const resultValidate = await validateInforme(req.body)
-        if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
+        if(!resultValidate.success) return res.status(400).json({message: JSON.parse(resultValidate.error.message)})
         const informeUpdated = await this.informeModel.updateInforme({input: resultValidate.data})
-        if(informeUpdated) return res.status(201).json(informeUpdated)        
-        return res.status(404).json('Error al actualizar Informe')  
+        if(informeUpdated) return res.status(201).json({message:'Informe Actualizado'})            
+        return res.status(404).json({message:'Error al actualizar Informe'})  
     }
 
     deleteInforme = async (req,res) => {
         const {idInforme} = req.params
         const informeDeleted = await this.informeModel.deleteInforme({idInforme: idInforme})
-        if(informeDeleted) return res.status(201).json(informeDeleted)        
-        return res.status(404).json('Error al eliminar Informe')
+        if(informeDeleted) return res.status(201).json({message:'Informe borrado correctamente'})        
+        return res.status(404).json({message:'Error al borrar Informe'})
     }
 }
