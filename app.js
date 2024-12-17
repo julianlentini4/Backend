@@ -36,7 +36,6 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
   const protectedAuth = (req, res, next)=> {
     const token = req.cookies.access_token
     req.session = {user:null}
-    console.log(req.path)
     if(req.path == '/access'){
       next()
       return
@@ -44,17 +43,14 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
     try{
       const data = jwt.verify(token,'secret-key')
       req.session.user = data
-      console.log("Sisi")
     }catch(error){
       req.session.user = null
       return res.status(404).json('Acceso denegado')
     }
-    console.log('Nexteee')
     next()
   }
   const userPermitions = async(req, res, next)=> {
     const {user} = req.session
-    console.log('Entre al al next :)')
     if(req.path == '/access' || user.tipo == 'ADMIN'){
       next()
       return
@@ -68,7 +64,6 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
     const token = req.cookies.access_token
     try{
       const data = jwt.verify(token,'secret-key')
-      console.log(data)
       return res.status(200).json({data:data})
     }catch(error){
       return res.status(404).json({data:null, message:'Acceso denegado'})
@@ -77,12 +72,12 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
   });
   //---------Rutas Protegidas-----------------------------------------------------------------------------
   //app.use('/turno', createTurnoRoutes({ turnoModel }));
-  app.use('/sala', protectedAuth, userPermitions, createSalaRoutes({ salaModel }));
+  app.use('/sala', protectedAuth, createSalaRoutes({ salaModel }));
   app.use('/paciente', protectedAuth, userPermitions, createPacienteRoutes({ pacienteModel }));
   app.use('/internacion', protectedAuth, userPermitions, createInternacionRoutes({ internacionModel }));
   app.use('/especialidad', protectedAuth, userPermitions, createEspecialidadRoutes({ especialidadModel }));
   app.use('/medico', protectedAuth, userPermitions, createMedicoRoutes({ medicoModel }));
-  app.use('/informe', protectedAuth, userPermitions, createInformeRoutes({ informeModel }));
+  app.use('/informe', protectedAuth, createInformeRoutes({ informeModel }));
   app.use('/paciente_ingreso', protectedAuth, userPermitions, createPte_IngresoRoutes({ pte_IngresoModel }));
   app.use('/ingreso', protectedAuth, userPermitions, createIngresoRoutes({ ingresoModel }));
   app.use('/agenda', protectedAuth, userPermitions, createAgendaRoutes({ agendaModel }));

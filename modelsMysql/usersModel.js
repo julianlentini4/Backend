@@ -4,12 +4,12 @@ const db = mySqlPool
 
 export class UsersModel{
     static async getUsers (){
-        const data = await db.query('SELECT * FROM Users')
+        const data = await db.query('SELECT username, tipo, sector, descripcion FROM Users')
         return data[0]
     }
 
     static async getUsersByUsername({username}){
-        const [data] = await db.query('SELECT * FROM Users where username = ? ',[username]) //corregir cuando realicemos la producción del token
+        const [data] = await db.query('SELECT username, tipo, sector, descripcion FROM Users where username = ? ',[username]) //corregir cuando realicemos la producción del token
         if(data.length==0) return null
         return data[0]
     }

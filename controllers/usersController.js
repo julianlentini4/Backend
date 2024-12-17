@@ -22,7 +22,7 @@ export class UsersController{
 
     createUsers = async (req,res) => {
         const resultValidate = await validateUsers(req.body)
-        if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
+        if(!resultValidate.success) return res.status(400).json({message:'Error de datos'})
         console.log(resultValidate.data)
         if(await this.usersModel.getUsersByUsername({username: resultValidate.data.username})) return res.status(404).json('El usuario ya existe')
         const {clave, ...data} = resultValidate.data
@@ -62,7 +62,7 @@ export class UsersController{
         console.log("Salí")
         res.clearCookie('access_token')
         console.log(userValidate[0].username)
-        const token = jwt.sign({username:userValidate[0].username, tipo: userValidate[0].tipo, sector: userValidate[0].sector, descripcion: userValidate[0].descripcion},'secret-key',{expiresIn:'1h'})
+        const token = jwt.sign({username:userValidate[0].username, tipo: userValidate[0].tipo, sector: userValidate[0].sector, descripcion: userValidate[0].descripcion},'secret-key',{expiresIn:'2h'})
         res.cookie('access_token', token, {
             httpOnly: true,
             sameSite: 'strict',
