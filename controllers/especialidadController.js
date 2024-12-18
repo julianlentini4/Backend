@@ -1,40 +1,41 @@
 import { validateEspecialidad, validatePartialEspecialidad } from "../schemas/especialidadSchema.js"
-import { EspecialidadModel } from "../models/especialidadModel.js"
+
 export class EspecialidadController{
     constructor({ especialidadModel }) {
         this.especialidadModel = especialidadModel
     }
 
     getEspecialidad = async (_req,res) => {
-        const especialidades = await EspecialidadModel.getEspecialidad()
-        res.json(especialidades)
+        const especialidades = await this.especialidadModel.getEspecialidad()
+        return res.json(especialidades)
     }
 
     getEspecialidadById = async (req,res) => { 
         const {idEspecialidad} = req.params
-        const especialidad = await  EspecialidadModel.getEspecialidadById({idEspecialidad})
+        console.log(req.params)
+        const especialidad = await  this.especialidadModel.getEspecialidadById({idEspecialidad})
         if (especialidad) return res.json(especialidad)
-        res.status(404).json({message: 'especialidad not found'})
+        return res.status(404).json({message: 'especialidad not found'})
     }
 
     createEspecialidad = async (req,res) => {
-        const result = validateEspecialidad(req.body)
+        const result = await validatePartialEspecialidad(req.body)
         if(!result.success) return res.status(400).json({error: JSON.parse(result.error.message)})
-        const newespecialidad = await EspecialidadModel.createEspecialidad({input:result.data})
-        res.status(201).json(newespecialidad)
+        const newEspecialidad = await this.especialidadModel.createEspecialidad({input:result.data})
+        return res.status(201).json(newEspecialidad)
     }
 
     deleteEspecialidad = async (req, res) => {
-        const {id} = req.params
-        const result = await EspecialidadModel.deleteEspecialidad({id})
-        if(result == false) return res.status(404).json({ message: 'especialidad not found' })
+        const {idEspecialidad} = req.params
+        const result = await this.especialidadModel.deleteEspecialidad({idEspecialidad})
+        if(!result) return res.status(404).json({ message: 'especialidad not found' })
         return res.json({ message: 'especialidad deleted' })
     }
-
+ 
     updateEspecialidad = async (req,res) => {
-        const result = validatePartialEspecialidad(req.body)
+        const result = await validateEspecialidad(req.body)
         if(!result.success) return res.status(400).json({error: JSON.parse(result.error.message)})
-        const updateespecialidad = await EspecialidadModel.updateEspecialidad({ input: result.data})
-        return res.json(updateespecialidad)
+        const updateEspecialidad = await this.especialidadModel.updateEspecialidad({ input: result.data})
+        return res.json(updateEspecialidad)
     }
 }
