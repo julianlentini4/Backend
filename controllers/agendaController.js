@@ -13,31 +13,30 @@ export class AgendaController{
     getAgendaById = async (req,res) => {
         const {idAgenda} = req.params
         const data = await this.agendaModel.getAgendaById({ idAgenda })
-        console.log(data)
         if(data) return res.status(200).json(data)        
-        return res.status(404).json({message: 'Agenda not found'})        
+        return res.status(404).json({message: 'Agenda no encontrada'})        
     }
 
     createAgenda = async (req,res) => {
         const resultValidate = await validatePartialAgenda(req.body)
         if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
         const newAgenda = await this.agendaModel.createAgenda({input: resultValidate.data})
-        if(newAgenda) return res.status(201).json(newAgenda)        
-        return res.status(404).json('Error al crear Agenda') 
+        if(newAgenda) return res.status(201).json({message:'Agenda creada con exito'})        
+        return res.status(404).json({message: 'Error al crear Agenda'}) 
     }
 
     updateAgenda = async (req,res) => {
         const resultValidate = await validateAgenda(req.body)
         if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
         const agendaUpdated = await this.agendaModel.updateAgenda({input: resultValidate.data})
-        if(agendaUpdated) return res.status(201).json(agendaUpdated)        
-        return res.status(404).json('Error al actualizar Agenda')  
+        if(agendaUpdated) return res.status(201).json({message:'Agenda actualizada con exito'})        
+        return res.status(404).json({message: 'Error al actualizar Agenda'})  
     }
 
     deleteAgenda = async (req,res) => {
         const {idAgenda} = req.params
         const agendaDeleted = await this.agendaModel.deleteAgenda({idAgenda: idAgenda})
-        if(agendaDeleted) return res.status(201).json(agendaDeleted)        
-        return res.status(404).json('Error al eliminar Agenda')
+        if(agendaDeleted) return res.status(201).json({message:'Agenda eliminada con exito'})        
+        return res.status(404).json({message:'Error al eliminar Agenda'})
     }
 }

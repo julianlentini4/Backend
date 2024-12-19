@@ -1,6 +1,5 @@
 import mySqlPool  from "../config/db.js";
 const db = mySqlPool
-//GET ALL MEDICOS LIST
 
 export class AgendaModel{
     static async getAgenda (){
@@ -15,35 +14,21 @@ export class AgendaModel{
     }
 
     static async createAgenda({input}){
-        const {
-            matricula,
-            tipo
+        const{
+            matricula, dia, horaInicio, horaFin
         } = input
         try{ 
-            const newAgenda = await db.query('INSERT INTO agenda(matricula,tipo) VALUES(?,?)',[
-                matricula,
-                tipo
-            ])
-            return newAgenda[0]
+            const data = await db.query('INSERT INTO agenda(matricula,dia,horaInicio,horaFin) VALUES(?,?,?,?)',[ matricula, dia, horaInicio, horaFin])
+            return data
         }catch(error){
-             console.log(error) //Agregar Manejo de errores 
+             console.log(error) 
         }
         return null
     }
 
-    static async updateAgenda ({input}){
-        const {
-            idAgenda,
-            matricula,
-            tipo
-        } = input
+    static async updateAgenda ({idAgenda, matricula, dia, horaInicio, horaFin}){
         try{
-            const data = await db.query('UPDATE agenda SET tipo = ? ,matricula = ? WHERE idAgenda = ?',[                
-                tipo,
-                matricula,
-                idAgenda
-            ])
-            //console.log(data)
+            const data = await db.query('UPDATE agenda SET matricula = ?, dia = ?, horaInicio = ?, horaFin = ?  WHERE idAgenda = ?',[matricula, dia, horaInicio, horaFin, idAgenda])
             return data[0]
         }
         catch(error){
@@ -57,7 +42,7 @@ export class AgendaModel{
             const data = await db.query('DELETE FROM agenda WHERE idAgenda = ?',[idAgenda])
             return data[0]
         }catch(error){
-            console.log(error) // agregar manejo de errores
+            console.log(error)
         }
         return null
     }
