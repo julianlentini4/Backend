@@ -16,10 +16,10 @@ const agendaSchema = z.object({
 })
 
 
-export async function validateAgenda (objet) {
+export async function validateAgendaDia (objet) {
   return agendaSchema.safeParseAsync(objet)
 }
 
-export function validatePartialAgenda (objet) {
+export function validatePartialAgendaDia (objet) {
   return agendaSchema.partial({idAgenda: true,}).safeParseAsync(objet)
 }

@@ -15,10 +15,10 @@ export class AgendaModel{
 
     static async createAgenda({input}){
         const{
-            matricula, dia, horaInicio, horaFin
+            matricula, tipo
         } = input
         try{ 
-            const data = await db.query('INSERT INTO agenda(matricula,dia,horaInicio,horaFin) VALUES(?,?,?,?)',[ matricula, dia, horaInicio, horaFin])
+            const data = await db.query('INSERT INTO agenda(matricula,tipo) VALUES(?,?)',[ matricula, tipo])
             return data
         }catch(error){
              console.log(error) 
@@ -26,9 +26,9 @@ export class AgendaModel{
         return null
     }
 
-    static async updateAgenda ({idAgenda, matricula, dia, horaInicio, horaFin}){
+    static async updateAgenda ({idAgenda, matricula, tipo}){
         try{
-            const data = await db.query('UPDATE agenda SET matricula = ?, dia = ?, horaInicio = ?, horaFin = ?  WHERE idAgenda = ?',[matricula, dia, horaInicio, horaFin, idAgenda])
+            const data = await db.query('UPDATE agenda SET matricula = ?, tipo = ?  WHERE idAgenda = ?',[matricula, tipo, idAgenda])
             return data[0]
         }
         catch(error){
