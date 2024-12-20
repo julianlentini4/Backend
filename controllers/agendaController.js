@@ -18,18 +18,13 @@ export class AgendaController{
     }
 
     createAgenda = async (req, res) => {
-        const { matricula, tipo } = req.body;
-    
-        if (!matricula || !tipo) { return res.status(400).json({ message: "Faltan datos requeridos" });}
-        const newAgenda = await this.agendaModel.createAgenda({ input: { matricula, tipo } });
-        if (newAgenda) {
-            return res.status(201).json({
-                idAgenda: newAgenda.idAgenda,
-                message: "Agenda creada exitosamente"
-            });
-        }
-        return res.status(500).json({ message: "Error al crear la Agenda" });
-    };
+        const resultValidate = await validateAgenda(req.body)
+        if(!resultValidate.success) return res.status(400).json({message: JSON.parse(resultValidate.error.message)})
+        const newAgenda = await this.agendaModel.createAgenda({input: resultValidate.data})
+        if(!newAgenda) return res.status(404).json({message:'Error al crear agenda'}) 
+        return res.status(201).json({message:'Agenda creada con exito'})    
+
+    }
     
 
     updateAgenda = async (req,res) => {

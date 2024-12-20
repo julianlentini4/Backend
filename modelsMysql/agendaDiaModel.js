@@ -16,10 +16,10 @@ export class AgendaDiaModel{
 
     static async createAgendaDia({input}){
         const{
-            idAgenda, dia, horaInicio, horaFin
+            dia, horaInicio, horaFin
         } = input
         try{ 
-            const data = await db.query('INSERT INTO agenda_dia(idAgenda,dia,horaInicio,horaFin) VALUES(?,?,?,?)',[idAgenda, dia, horaInicio, horaFin])
+            const data = await db.query('INSERT INTO agenda_dia(idAgenda,dia,horaInicio,horaFin) VALUES(last_insert_id(),?,?,?)',[dia, horaInicio, horaFin])
             return data
         }catch(error){
              console.log(error) 
