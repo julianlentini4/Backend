@@ -2,8 +2,9 @@ import mySqlPool  from "../config/db.js";
 const db = mySqlPool
 
 export class AgendaDiaModel{
-    static async getAgendaDia (){
-        const data = await db.query('SELECT * FROM agenda_dia')
+    static async getAgendaDia(){
+        console.log("a")
+        const [data] = await db.query('SELECT * FROM agenda_dia')
         return data[0]
     }
 

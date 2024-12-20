@@ -24,7 +24,7 @@ import { createUsersRoutes } from './routes/usersRoutes.js';
 
 
 //main Function
-export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacionModel, especialidadModel, medicoModel, informeModel, pte_IngresoModel, ingresoModel, agendaModel, /*diaModel*/ AgendaDiaModel, medico_EspecialidadModel, usersModel }) => {
+export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacionModel, especialidadModel, medicoModel, informeModel, pte_IngresoModel, ingresoModel, agendaModel, /*diaModel*/ agendaDiaModel, medico_EspecialidadModel, usersModel }) => {
   const app = express()
   const port = process.env.PORT ?? 3000 //Es para que tome el puerto de algun posible hosting y en caso de no tenerlo que tome el 3000 por defecto
   app.use(json());
@@ -81,9 +81,9 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
   app.use('/informe', protectedAuth, createInformeRoutes({ informeModel }));
   app.use('/paciente_ingreso', protectedAuth, userPermitions, createPte_IngresoRoutes({ pte_IngresoModel }));
   app.use('/ingreso', protectedAuth, userPermitions, createIngresoRoutes({ ingresoModel }));
-  app.use('/agenda', protectedAuth, userPermitions, createAgendaRoutes({ agendaModel }));
+  app.use('/agenda', /*protectedAuth, userPermitions,*/ createAgendaRoutes({ agendaModel }));
   //app.use('/dia', protectedAuth, userPermitions, createDiaRoutes({ diaModel }));
-  app.use('/agendaDia', protectedAuth, userPermitions, createAgendaDiaRoutes({ AgendaDiaModel }));
+  app.use('/agendaDia', /*protectedAuth, userPermitions,*/ createAgendaDiaRoutes({ agendaDiaModel }));
   app.use('/medico_especialidad', protectedAuth, userPermitions, createMedico_EspecialidadRoutes({ medico_EspecialidadModel }))
   app.use('/users', protectedAuth, userPermitions, createUsersRoutes({ usersModel }))
   //---------Rutas Protegidas------------------------------------------------------------------------

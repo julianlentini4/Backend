@@ -3,7 +3,7 @@ const db = mySqlPool
 
 export class AgendaModel{
     static async getAgenda (){
-        const data = await db.query('SELECT * FROM Agenda')
+        const data = await db.query('SELECT * FROM Agenda a inner join agenda_dia ad ON a.idAgenda = ad.idAgenda')
         return data[0]
     }
 
@@ -13,18 +13,20 @@ export class AgendaModel{
         return data[0]
     }
 
-    static async createAgenda({input}){
-        const{
-            matricula, tipo
-        } = input
-        try{ 
-            const data = await db.query('INSERT INTO agenda(matricula,tipo) VALUES(?,?)',[ matricula, tipo])
-            return data
-        }catch(error){
-             console.log(error) 
+    static async createAgenda({ input }) {
+        const { matricula, tipo } = input;
+        try { 
+            const [data] = await db.query(
+                'INSERT INTO agenda (matricula, tipo) VALUES (?, ?)',
+                [matricula, tipo]
+            );
+            return { idAgenda: data.insertId }; // Devuelve el id generado
+        } catch (error) {
+            console.log(error);
         }
-        return null
+        return null;
     }
+    
 
     static async updateAgenda ({idAgenda, matricula, tipo}){
         try{
