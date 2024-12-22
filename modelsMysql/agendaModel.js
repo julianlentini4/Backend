@@ -25,7 +25,8 @@ export class AgendaModel{
     }
     
 
-    static async updateAgenda ({idAgenda, matricula}){
+    static async updateAgenda ({input}){
+        const {idAgenda, matricula} = input;
         try{
             const data = await db.query('UPDATE agenda SET matricula = ? WHERE idAgenda = ?',[matricula, idAgenda])
             return data[0]

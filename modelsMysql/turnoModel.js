@@ -1,7 +1,4 @@
-/*import mySqlPool  from "../config/db.js";
-import { MedicoModel } from "./medicoModel.js";
-import { AgendaModel } from "./agendaModel.js";
-import { PacienteModel } from "./pacienteModel.js";
+import mySqlPool  from "../config/db.js";
 
 const db = mySqlPool
 
@@ -17,11 +14,11 @@ export class TurnoModel{
         return data[0]
     }
 
-    static async getTurnoByPaciente({dni}){
-        const [data] = await db.query('SELECT * FROM turno where dni=?',[dni])
-        if(data.length==0) return null
-        return data[0]
-    }
+    // static async getTurnoByPaciente({dni}){
+    //     const [data] = await db.query('SELECT * FROM turno where dni=?',[dni])
+    //     if(data.length==0) return null
+    //     return data[0]
+    // }
 
     static async getTurnoByMedico({matricula}){
         const [data] = await db.query('SELECT * FROM turno where matricula=?',[matricula])
@@ -35,21 +32,14 @@ export class TurnoModel{
             matricula,
             nroAgenda,
             dni,
-            fechaHoraTurno,
+            fecha,
+            hora,
         } = input
 
         const estado = 'Pendiente'
 
-        const paciente = await PacienteModel.getPacienteById({ dni });
-        const medico = await MedicoModel.getMedicoByMatricula({ matricula});
-        const agenda = await AgendaModel.getAgendaById({ nroAgenda });
-    
-        if (!paciente || !medico || !agenda) {
-            throw new Error('Paciente, Médico o Agenda no válidos.');
-        }
-    
         try{ 
-            const newMedico = await db.query('INSERT INTO informe(idTurno,matricula,dni,fechaHoraTurno,estado) VALUES(?,?,?,?,?)',[idTurno,matricula,dni,fechaHoraTurno,estado])
+            const newMedico = await db.query('INSERT INTO informe(idTurno,matricula,dni,fecha,hora,estado) VALUES(?,?,?,?,?,?)',[idTurno,matricula,dni,fecha,hora,estado])
             return newMedico[0]
         }catch(error){
              console.log(error)
@@ -60,10 +50,11 @@ export class TurnoModel{
     static async updateInforme ({input}){
         const {
             idTurno,
-            fechaHoraTurno
+            fecha,
+            hora
         } = input
         try{
-            const data = await db.query('UPDATE turno SET fechaHoraTurno = ? WHERE idTurno=?',[fechaHoraTurno,idTurno])
+            const data = await db.query('UPDATE turno SET fecha = ?, hora = ? WHERE idTurno=?',[fecha,hora,idTurno])
             console.log(data)
             return data[0]
         }
@@ -83,4 +74,3 @@ export class TurnoModel{
         return null
     }
 }
-    */

@@ -1,10 +1,7 @@
 import z from 'zod'
 
 const agendaSchema = z.object({
-  dia: z.number().int().positive({
-    message:"Tiene que ser un numero entero"})
-  .min(0,{ message: "El numero no puede ser menor a 0 (Domingo)"})
-  .max(6,{ message: "El numero no puede ser mayor a 6 (Sabado)"}),
+  dia: z.string(),
   horaInicio: z.string(),
   horaFin: z.string()
 })

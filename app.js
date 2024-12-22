@@ -14,17 +14,17 @@ import { createIngresoRoutes } from './routes/ingresoRoutes.js';
 import { createAgendaRoutes } from './routes/agendaRoutes.js';
 //import { createDiaRoutes } from './routes/diaRoutes.js';
 import { createAgendaDiaRoutes } from './routes/agendaDiaRoutes.js';
-//import { createTurnoRoutes } from './routes/turnoRoutes.js';
 import { createSalaRoutes } from './routes/salaRoutes.js';
 import { createPacienteRoutes } from './routes/pacienteRoutes.js';
 import { createInternacionRoutes } from './routes/internacionRoutes.js';
 import { createEspecialidadRoutes } from './routes/especialidadRoutes.js';
 import { createMedico_EspecialidadRoutes } from './routes/medico_EspecialidadRoutes.js';
 import { createUsersRoutes } from './routes/usersRoutes.js';
+import { createTurnoRoutes } from './routes/turnoRoutes.js';
 
 
 //main Function
-export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacionModel, especialidadModel, medicoModel, informeModel, pte_IngresoModel, ingresoModel, agendaModel, /*diaModel*/ agendaDiaModel, medico_EspecialidadModel, usersModel }) => {
+export const createApp = ({ turnoModel, salaModel, pacienteModel, internacionModel, especialidadModel, medicoModel, informeModel, pte_IngresoModel, ingresoModel, agendaModel, /*diaModel*/ agendaDiaModel, medico_EspecialidadModel, usersModel }) => {
   const app = express()
   const port = process.env.PORT ?? 3000 //Es para que tome el puerto de algun posible hosting y en caso de no tenerlo que tome el 3000 por defecto
   app.use(json());
@@ -72,7 +72,6 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
     
   });
   //---------Rutas Protegidas-----------------------------------------------------------------------------
-  //app.use('/turno', createTurnoRoutes({ turnoModel }));
   app.use('/sala', protectedAuth, createSalaRoutes({ salaModel }));
   app.use('/paciente', protectedAuth, userPermitions, createPacienteRoutes({ pacienteModel }));
   app.use('/internacion', protectedAuth, userPermitions, createInternacionRoutes({ internacionModel }));
@@ -81,7 +80,8 @@ export const createApp = ({ /*turnoModel,*/ salaModel, pacienteModel, internacio
   app.use('/informe', protectedAuth, createInformeRoutes({ informeModel }));
   app.use('/paciente_ingreso', protectedAuth, userPermitions, createPte_IngresoRoutes({ pte_IngresoModel }));
   app.use('/ingreso', protectedAuth, userPermitions, createIngresoRoutes({ ingresoModel }));
-  app.use('/agenda', /*protectedAuth, userPermitions,*/ createAgendaRoutes({ agendaModel }));
+  app.use('/agenda', protectedAuth, userPermitions, createAgendaRoutes({ agendaModel }));
+  app.use('/turno', protectedAuth, userPermitions, createTurnoRoutes({ turnoModel }));
   //app.use('/dia', protectedAuth, userPermitions, createDiaRoutes({ diaModel }));
   app.use('/agendaDia', /*protectedAuth, userPermitions,*/ createAgendaDiaRoutes({ agendaDiaModel }));
   app.use('/medico_especialidad', protectedAuth, userPermitions, createMedico_EspecialidadRoutes({ medico_EspecialidadModel }))

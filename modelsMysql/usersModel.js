@@ -33,7 +33,7 @@ export class UsersModel{
             ])
             return newUsers[0]
         }catch(error){
-             console.log(error) //Agregar Manejo de errores 
+             console.log(error)
         }
         return null
     }
