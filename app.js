@@ -80,7 +80,7 @@ export const createApp = ({ turnoModel, salaModel, pacienteModel, internacionMod
   app.use('/informe', protectedAuth, createInformeRoutes({ informeModel }));
   app.use('/paciente_ingreso', protectedAuth, userPermitions, createPte_IngresoRoutes({ pte_IngresoModel }));
   app.use('/ingreso', protectedAuth, userPermitions, createIngresoRoutes({ ingresoModel }));
-  app.use('/agenda', protectedAuth, userPermitions, createAgendaRoutes({ agendaModel }));
+  app.use('/agenda', /*protectedAuth, userPermitions,*/ createAgendaRoutes({ agendaModel }));
   app.use('/turno', protectedAuth, userPermitions, createTurnoRoutes({ turnoModel }));
   //app.use('/dia', protectedAuth, userPermitions, createDiaRoutes({ diaModel }));
   app.use('/agendaDia', /*protectedAuth, userPermitions,*/ createAgendaDiaRoutes({ agendaDiaModel }));

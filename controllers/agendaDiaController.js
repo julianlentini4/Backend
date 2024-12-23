@@ -6,7 +6,6 @@ export class AgendaDiaController{
     }
 
     getAgendaDia = async (_req,res) => {
-        console.log("aaaa")
         const data = await this.agendaDiaModel.getAgendaDia()
         return res.json(data)
     }
