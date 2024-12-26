@@ -14,11 +14,11 @@ export class TurnoModel{
         return data[0]
     }
 
-    // static async getTurnoByPaciente({dni}){
-    //     const [data] = await db.query('SELECT * FROM turno where dni=?',[dni])
-    //     if(data.length==0) return null
-    //     return data[0]
-    // }
+    static async getTurnoByPaciente({dni}){
+        const [data] = await db.query('SELECT * FROM turno where dni=?',[dni])
+        if(data.length==0) return null
+        return data[0]
+    }
 
     static async getTurnoByMedico({matricula}){
         const [data] = await db.query('SELECT * FROM turno where matricula=?',[matricula])
