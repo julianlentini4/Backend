@@ -9,13 +9,6 @@ export class TurnoController{
         const turnos = await this.turnoModel.getTurnos();
         res.status(200).json(turnos);
     }
-    
-    getTurnosByPaciente = async (req, res) => {
-        const { idPaciente } = req.params;
-        const turnos = await this.turnoModel.getTurnosByPaciente(idPaciente);
-        res.status(200).json(turnos);
-    }
-
 
     createTurno = async (req, res) => {
         const { dni, nombreApellido, idMedico, idEspecialidad, fechaHoraTurno } = req.body;

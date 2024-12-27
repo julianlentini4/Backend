@@ -75,7 +75,7 @@ export const createApp = ({ turnoModel, salaModel, pacienteModel, internacionMod
   app.use('/sala', protectedAuth, createSalaRoutes({ salaModel }));
   app.use('/paciente', protectedAuth, userPermitions, createPacienteRoutes({ pacienteModel }));
   app.use('/internacion', protectedAuth, userPermitions, createInternacionRoutes({ internacionModel }));
-  app.use('/especialidad', protectedAuth, userPermitions, createEspecialidadRoutes({ especialidadModel }));
+  app.use('/especialidad', /*protectedAuth, userPermitions,*/ createEspecialidadRoutes({ especialidadModel }));
   app.use('/medico', protectedAuth, userPermitions, createMedicoRoutes({ medicoModel }));
   app.use('/informe', protectedAuth, createInformeRoutes({ informeModel }));
   app.use('/paciente_ingreso', protectedAuth, userPermitions, createPte_IngresoRoutes({ pte_IngresoModel }));

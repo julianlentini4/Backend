@@ -5,7 +5,7 @@ const db = mySqlPool
 
 export class MedicoModel{
     static async getMedicos (){
-        const data = await db.query('SELECT * FROM medico')
+        const data = await db.query('SELECT m.matricula, m.dni, m.apellido, m.nombre, e.idEspecialidad, e.nombre especialidad FROM medico m inner join medico_especialidad me on m.matricula = me.matricula inner join especialidad e on me.idEspecialidad = e.idEspecialidad')
         return data[0]
     }
 

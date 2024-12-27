@@ -8,8 +8,6 @@ export const createTurnoRoutes = ({ turnoModel }) => {
 
     
     turnoRouter.get('/', turnoController.getTurnos)
-    //turnoRouter.get('/:idTurnos', turnoController.getTurnoById)
-    turnoRouter.get('/:dni', turnoController.getTurnosByPaciente)
     turnoRouter.post('/', turnoController.createTurno)
     turnoRouter.put('/', turnoController.updateTurnoFechaHora)
     turnoRouter.delete('/:idTurno', turnoController.deleteTurno)
