@@ -3,7 +3,6 @@ const db = mySqlPool
 
 export class AgendaDiaModel{
     static async getAgendaDia(){
-        console.log("a")
         const [data] = await db.query('SELECT * FROM agenda_dia')
         return data[0]
     }
@@ -19,7 +18,7 @@ export class AgendaDiaModel{
             dia, horaInicio, horaFin
         } = input
         try{ 
-            const data = await db.query('INSERT INTO agenda_dia(idAgenda,dia,horaInicio,horaFin) VALUES(last_insert_id(),?,?,?)',[dia, horaInicio, horaFin])
+            const data = await db.query('INSERT INTO agenda_dia(idAgenda,dia,horaInicio,horaFin,estado) VALUES(last_insert_id(),?,?,?,TRUE)',[dia, horaInicio, horaFin])
             return data
         }catch(error){
              console.log(error) 

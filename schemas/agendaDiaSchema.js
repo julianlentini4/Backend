@@ -1,4 +1,4 @@
-import z from 'zod'
+import z, { boolean } from 'zod'
 
 const agendaSchema = z.object({
   dia: z.string(),

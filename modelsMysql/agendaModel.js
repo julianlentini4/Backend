@@ -13,6 +13,10 @@ export class AgendaModel{
         return data[0]
     }
 
+    static async getAgendaByEspecialidad({especialidad}){
+        const [data] = await db.query('SELECT ')
+    }
+
     static async createAgenda({ input }) {
         const { matricula } = input;
         try { 
