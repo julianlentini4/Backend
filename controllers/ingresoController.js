@@ -20,7 +20,7 @@ export class IngresoController{
 
     createIngreso = async (req,res) => {
         const resultValidate = await validatePartialIngreso(req.body)
-        if(!resultValidate.success) return res.status(400).json({message: JSON.parse(resultValidate.error.message)})
+        if(!resultValidate.success) return res.status(400).json({message: 'Error de datos'})
         const newIngreso = await this.ingresoModel.createIngreso({input: resultValidate.data})
         if(newIngreso) return res.status(201).json({message:'Ingreso Creado correctamente'})        
         return res.status(404).json({message:'Error al crear Ingreso'}) 
