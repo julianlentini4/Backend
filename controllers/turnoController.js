@@ -1,4 +1,4 @@
-import { TurnoModel } from "../models/turnoModel.js";
+/*import { TurnoModel } from "../models/turnoModel.js";
 
 export class TurnoController{
     constructor({ turnoModel }) {
@@ -69,3 +69,4 @@ export class TurnoController{
         res.status(200).json({ message: 'Turno eliminado con éxito.' });    
     }
 }
+*/

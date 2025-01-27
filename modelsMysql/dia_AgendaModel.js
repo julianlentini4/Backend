@@ -4,7 +4,7 @@ const db = mySqlPool
 
 export class Dia_AgendaModel{
     static async getDia_Agenda (){
-        const data = await db.query('SELECT * FROM dia_agenda order by idDia')
+        const data = await db.query('SELECT * FROM dia_agenda order by nroDia')
         return data[0]
     }
 
@@ -13,8 +13,8 @@ export class Dia_AgendaModel{
         if(data.length==0) return null
         return data[0]
     }
-    static async getDia_AgendaByIdDia({idDia}){
-        const [data] = await db.query('SELECT * FROM dia_agenda where idDia=?',[idDia])
+    static async getDia_AgendaByIdDia({nroDia}){
+        const [data] = await db.query('SELECT * FROM dia_agenda where nroDia=?',[nroDia])
         if(data.length==0) return null
         return data[0]
     }
@@ -22,16 +22,16 @@ export class Dia_AgendaModel{
     static async createDia_Agenda({input}){
         const {
             idAgenda,
-            idDia,
-            hora,
+            nroDia,
+            horaAtencion
         } = input
         console.log(idAgenda) //Visualización en consola de idAgenda
         try{ 
             //Modificar Consultas
-            const newAgenda = await db.query('INSERT INTO dia_agenda(idAgenda,idDia,hora) VALUES(?,?,?)',[
+            const newAgenda = await db.query('INSERT INTO dia_agenda(idAgenda,nroDia,horaAtencion) VALUES(?,?,?)',[
                 idAgenda,
-                idDia,
-                hora
+                nroDia,
+                horaAtencion
             ])
             return newAgenda[0]
         }catch(error){
@@ -44,10 +44,10 @@ export class Dia_AgendaModel{
         try{
            const{
             idAgenda,
-            idDia,
-            hora
+            nroDia,
+            horaAtencion
         } = input
-            const data = await db.query('DELETE FROM dia_agenda WHERE idAgenda = ? and idDia = ? and hora = ?',[idAgenda, idDia, hora])
+            const data = await db.query('DELETE FROM dia_agenda WHERE idAgenda = ? and nroDia = ? and horaAtencion = ?',[idAgenda, nroDia, horaAtencion])
             return data[0]
         }catch(error){
             console.log(error) // agregar manejo de errores

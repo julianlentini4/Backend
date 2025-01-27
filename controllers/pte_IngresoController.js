@@ -1,4 +1,4 @@
-import {validatePte_Ingreso} from "../schemas/pte_IngresoSchema.js";
+import {validatePartialPte_Ingreso, validatePte_Ingreso} from "../schemas/pte_IngresoSchema.js";
 
 export class Pte_IngresoController{
     constructor({ pte_IngresoModel }) {
@@ -19,7 +19,7 @@ export class Pte_IngresoController{
     }
 
     createPte_Ingreso = async (req,res) => {
-        const resultValidate = await validatePte_Ingreso(req.body)
+        const resultValidate = await validatePartialPte_Ingreso(req.body)
         if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
         console.log(resultValidate)// objet retornado de la validacion 
         const newIngreso = await this.pte_IngresoModel.createPte_Ingreso({input: resultValidate.data})

@@ -1,4 +1,4 @@
-import {validateAgenda} from "../schemas/agendaSchema.js";
+import {validateAgenda, validatePartialAgenda} from "../schemas/agendaSchema.js";
 
 export class AgendaController{
     constructor({ agendaModel }) {
@@ -19,9 +19,8 @@ export class AgendaController{
     }
 
     createAgenda = async (req,res) => {
-        const resultValidate = await validateAgenda(req.body)
+        const resultValidate = await validatePartialAgenda(req.body)
         if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
-        console.log(resultValidate)// objet retornado de la validacion 
         const newAgenda = await this.agendaModel.createAgenda({input: resultValidate.data})
         if(newAgenda) return res.status(201).json(newAgenda)        
         return res.status(404).json('Error al crear Agenda') 

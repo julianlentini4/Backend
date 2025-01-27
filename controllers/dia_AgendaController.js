@@ -18,8 +18,8 @@ export class Dia_AgendaController{
         return res.status(404).json({message: 'Dia_Agenda not found'})        
     }
     getDia_AgendaByIdDia = async (req,res) => {
-        const {idDia} = req.params
-        const data = await this.dia_AgendaModel.getDia_AgendaByIdDia({ idDia })
+        const {nroDia} = req.params
+        const data = await this.dia_AgendaModel.getDia_AgendaByIdDia({ nroDia })
         console.log(data)
         if(data) return res.status(200).json(data)        
         return res.status(404).json({message: 'Dia_Agenda not found'})        
@@ -37,6 +37,6 @@ export class Dia_AgendaController{
     deleteDia_Agenda = async (req,res) => {
         const Dia_AgendaDeleted = await this.dia_AgendaModel.deleteDia_Agenda({input: req.query})
         if(Dia_AgendaDeleted) return res.status(201).json(Dia_AgendaDeleted)        
-        return res.status(404).json('Error al eliminar Agenda')
+        return res.status(404).json('Error al eliminar Dia_Agenda')
     }
 }

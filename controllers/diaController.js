@@ -11,8 +11,8 @@ export class DiaController{
     }
 
     getDiaById = async (req,res) => {
-        const {idDia} = req.params
-        const data = await this.diaModel.getDiaById({ idDia })
+        const {nroDia} = req.params
+        const data = await this.diaModel.getDiaById({ nroDia })
         console.log(data)
         if(data) return res.status(200).json(data)        
         return res.status(404).json({message: 'Dia not found'})        
@@ -36,8 +36,8 @@ export class DiaController{
     }
 
     deleteDia = async (req,res) => {
-        const {idDia} = req.params
-        const diaDeleted = await this.diaModel.deleteDia({idDia: idDia})
+        const {nroDia} = req.params
+        const diaDeleted = await this.diaModel.deleteDia({nroDia: nroDia})
         if(diaDeleted) return res.status(201).json(diaDeleted)        
         return res.status(404).json('Error al eliminar Dia')
     }

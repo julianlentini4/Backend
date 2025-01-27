@@ -1,7 +1,7 @@
 import z from 'zod'
 //Validación de datos 
 const diaSchema = z.object({
-  idDia: z.number().int({
+  nroDia: z.number().int({
     message: "El id de dia debe ser un numero entero"
   }),
   nombre: z.string({
@@ -14,5 +14,5 @@ export async function validateDia (objet) {
 }
 
 export function validatePartialDia (objet) {
-  return diaSchema.partial().safeParse(objet)
+  return diaSchema.partial({nroDia: true}).safeParseAsync(objet)
 }

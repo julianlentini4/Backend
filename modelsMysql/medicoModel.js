@@ -5,7 +5,7 @@ const db = mySqlPool
 
 export class MedicoModel{
     static async getMedicos (){
-        const data = await db.query('SELECT * FROM medico INNER JOIN especialidad ON medico.idespecialidad = especialidad.idespecialidad')
+        const data = await db.query('SELECT * FROM medico')
         return data[0]
     }
 
@@ -18,12 +18,18 @@ export class MedicoModel{
     static async createMedico({input}){
         const {
             matricula,
-            name,
-            idespecialidad
+            apellido,
+            nombre,
+            dni
         } = input
-        console.log(matricula) //Visualización en consola de matricula
         try{ 
-            const newMedico = await db.query('INSERT INTO medico(matricula,name,idespecialidad) VALUES(?,?,?)',[matricula,name,idespecialidad])
+            const newMedico = await db.query('INSERT INTO medico(matricula,apellido,nombre,dni) VALUES(?,?,?,?)',
+            [
+                matricula,
+                apellido,
+                nombre,
+                dni
+            ])
             return newMedico[0]
         }catch(error){
              console.log(error) //Agregar Manejo de errores 
@@ -34,12 +40,18 @@ export class MedicoModel{
     static async updateMedico ({input}){
         const {
             matricula,
-            name,
-            idespecialidad
+            apellido,
+            nombre,
+            dni
         } = input
         try{
-            const data = await db.query('UPDATE medico SET name=? , idespecialidad=? WHERE matricula=?',[name,idespecialidad,matricula])
-            console.log(data)
+            const data = await db.query('UPDATE medico SET apellido=? , nombre=? , dni=? WHERE matricula=?',
+            [
+                apellido,
+                nombre,
+                dni,
+                matricula
+            ])
             return data[0]
         }
         catch(error){

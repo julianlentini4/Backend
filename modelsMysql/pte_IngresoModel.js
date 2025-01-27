@@ -4,7 +4,7 @@ const db = mySqlPool
 
 export class Pte_IngresoModel{
     static async getPte_Ingresos (){
-        const data = await db.query('SELECT * FROM paciente_ingreso INNER JOIN medico ON medico.matricula = paciente_ingreso.matricula') // Agregar inner con paciente y postrar todos los datos
+        const data = await db.query('SELECT * FROM paciente_ingreso INNER JOIN paciente on paciente.dni= paciente_ingreso.dni INNER JOIN medico ON medico.matricula = paciente_ingreso.matricula') // Agregar inner con paciente y postrar todos los datos
         return data[0]
     }
 
@@ -16,26 +16,23 @@ export class Pte_IngresoModel{
 
     static async createPte_Ingreso({input}){
         const {
-            nroAcceso,
             descripcion,
             fechaRecepcion,
             horaRecepcion,
             matricula,
             tipo,
-            idPaciente,
+            dni,
             idIngreso
         } = input
-        console.log(nroAcceso) //Visualización en consola de nroAcceso
         try{ 
             //Modificar Consultas
-            const newIngreso = await db.query('INSERT INTO paciente_ingreso(nroAcceso,descripcion,fechaRecepcion,horaRecepcion,matricula,tipo,idPaciente,idIngreso) VALUES(?,?,?,?,?,?,?,?)',[
-                nroAcceso,
+            const newIngreso = await db.query('INSERT INTO paciente_ingreso(descripcion,fechaRecepcion,horaRecepcion,matricula,tipo,dni,idIngreso) VALUES(?,?,?,?,?,?,?)',[
                 descripcion,
                 fechaRecepcion,
                 horaRecepcion,
                 matricula,
                 tipo,
-                idPaciente,
+                dni,
                 idIngreso
             ])
             return newIngreso[0]
@@ -53,18 +50,18 @@ export class Pte_IngresoModel{
             horaRecepcion,
             matricula,
             tipo,
-            idPaciente,
+            dni,
             idIngreso
         } = input
         try{
-            const data = await db.query('UPDATE paciente_ingreso SET descripcion = ?, fechaRecepcion = ?, horaRecepcion = ?, matricula = ?, tipo = ?, idPaciente = ?, idIngreso = ? WHERE nroAcceso=? ',[
+            const data = await db.query('UPDATE paciente_ingreso SET descripcion = ?, fechaRecepcion = ?, horaRecepcion = ?, matricula = ?, tipo = ?, dni = ?, idIngreso = ? WHERE nroAcceso=? ',[
                
                 descripcion,
                 fechaRecepcion,
                 horaRecepcion,
                 matricula,
                 tipo,
-                idPaciente,
+                dni,
                 idIngreso, 
                 nroAcceso,
             ])

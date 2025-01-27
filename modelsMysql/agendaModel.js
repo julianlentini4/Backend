@@ -16,15 +16,11 @@ export class AgendaModel{
 
     static async createAgenda({input}){
         const {
-            idAgenda,
             matricula,
-            tipo,
+            tipo
         } = input
-        console.log(idAgenda) //Visualización en consola de idAgenda
         try{ 
-            //Modificar Consultas
-            const newAgenda = await db.query('INSERT INTO agenda(idAgenda,matricula,tipo) VALUES(?,?,?)',[
-                idAgenda,
+            const newAgenda = await db.query('INSERT INTO agenda(matricula,tipo) VALUES(?,?)',[
                 matricula,
                 tipo
             ])
@@ -42,12 +38,12 @@ export class AgendaModel{
             tipo
         } = input
         try{
-            const data = await db.query('UPDATE agenda SET matricula = ? , tipo = ? WHERE idAgenda = ?',[
-                matricula,
+            const data = await db.query('UPDATE agenda SET tipo = ? ,matricula = ? WHERE idAgenda = ?',[                
                 tipo,
+                matricula,
                 idAgenda
             ])
-            console.log(data)
+            //console.log(data)
             return data[0]
         }
         catch(error){

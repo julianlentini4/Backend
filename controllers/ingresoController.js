@@ -1,4 +1,4 @@
-import {validateIngreso} from "../schemas/ingresoSchema.js";
+import {validateIngreso, validatePartialIngreso} from "../schemas/ingresoSchema.js";
 
 export class IngresoController{
     constructor({ ingresoModel }) {
@@ -15,30 +15,29 @@ export class IngresoController{
         const data = await this.ingresoModel.getIngresoById({ idIngreso })
         console.log(data)
         if(data) return res.status(200).json(data)        
-        return res.status(404).json({message: 'Ingreso not found'})        
+        return res.status(404).json({message:'No existe Ingreso'})        
     }
 
     createIngreso = async (req,res) => {
-        const resultValidate = await validateIngreso(req.body)
-        if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
-        console.log(resultValidate)// objet retornado de la validacion 
+        const resultValidate = await validatePartialIngreso(req.body)
+        if(!resultValidate.success) return res.status(400).json({message: 'Error de datos'})
         const newIngreso = await this.ingresoModel.createIngreso({input: resultValidate.data})
-        if(newIngreso) return res.status(201).json(newIngreso)        
-        return res.status(404).json('Error al crear Ingreso') 
+        if(newIngreso) return res.status(201).json({message:'Ingreso Creado correctamente'})        
+        return res.status(404).json({message:'Error al crear Ingreso'}) 
     }
 
     updateIngreso = async (req,res) => {
         const resultValidate = await validateIngreso(req.body)
-        if(!resultValidate.success) return res.status(400).json({error: JSON.parse(resultValidate.error.message)})
+        if(!resultValidate.success) return res.status(400).json({message: JSON.parse(resultValidate.error.message)})
         const ingresoUpdated = await this.ingresoModel.updateIngreso({input: resultValidate.data})
-        if(ingresoUpdated) return res.status(201).json(ingresoUpdated)        
-        return res.status(404).json('Error al actualizar Ingreso')  
+        if(ingresoUpdated) return res.status(201).json({message:'Ingreso Actualizado correctamente'})        
+        return res.status(404).json({message:'Error al actualizar Ingreso'})  
     }
 
     deleteIngreso = async (req,res) => {
         const {idIngreso} = req.params
         const ingresoDeleted = await this.ingresoModel.deleteIngreso({idIngreso: idIngreso})
-        if(ingresoDeleted) return res.status(201).json(ingresoDeleted)        
-        return res.status(404).json('Error al eliminar Ingreso')
+        if(ingresoDeleted) return res.status(201).json({message:'Ingreso Borrado correctamente'})        
+        return res.status(404).json({message:'Error al Borrar Ingreso'})
     }
 }

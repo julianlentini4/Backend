@@ -7,10 +7,10 @@ export const createEspecialidadRoutes = ({ especialidadModel }) => {
     const especialidadController = new EspecialidadController({ especialidadModel })
 
     especialidadesRouter.get('/',especialidadController.getEspecialidad)
-    especialidadesRouter.get('/:id',especialidadController.getEspecialidadById)
+    especialidadesRouter.get('/:idEspecialidad',especialidadController.getEspecialidadById)
+    especialidadesRouter.put('/:idEspecialidad',especialidadController.updateEspecialidad)
     especialidadesRouter.post('/', especialidadController.createEspecialidad)
-    especialidadesRouter.patch('/:id',especialidadController.updateEspecialidad)
-    especialidadesRouter.delete('/:id',especialidadController.deleteEspecialidad)
+    especialidadesRouter.delete('/:idEspecialidad',especialidadController.deleteEspecialidad)
     return especialidadesRouter
 }
 

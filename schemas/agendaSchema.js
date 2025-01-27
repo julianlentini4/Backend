@@ -17,5 +17,5 @@ export async function validateAgenda (objet) {
 }
 
 export function validatePartialAgenda (objet) {
-  return agendaSchema.partial().safeParse(objet)
+  return agendaSchema.partial({idAgenda: true,}).safeParseAsync(objet)
 }

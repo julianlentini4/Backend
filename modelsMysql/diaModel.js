@@ -8,22 +8,21 @@ export class DiaModel{
         return data[0]
     }
 
-    static async getDiaById({idDia}){
-        const [data] = await db.query('SELECT * FROM dia where idDia=?',[idDia])
+    static async getDiaById({nroDia}){
+        const [data] = await db.query('SELECT * FROM dia where nroDia=?',[nroDia])
         if(data.length==0) return null
         return data[0]
     }
 
     static async createDia({input}){
         const {
-            idDia,
+            nroDia,
             nombre
         } = input
-        console.log(idDia) //Visualización en consola de idDia
         try{ 
             //Modificar Consultas
-            const newDia = await db.query('INSERT INTO dia(idDia,nombre) VALUES(?,?)',[
-                idDia,
+            const newDia = await db.query('INSERT INTO dia(nroDia,nombre) VALUES(?,?)',[
+                nroDia,
                 nombre
             ])
             return newDia[0]
@@ -35,13 +34,13 @@ export class DiaModel{
 
     static async updateDia ({input}){
         const {
-            idDia,
+            nroDia,
             nombre
         } = input
         try{
-            const data = await db.query('UPDATE dia SET nombre = ? WHERE idDia = ?',[
+            const data = await db.query('UPDATE dia SET nombre = ? WHERE nroDia = ?',[
                 nombre,
-                idDia
+                nroDia
             ])
             console.log(data)
             return data[0]
@@ -52,9 +51,9 @@ export class DiaModel{
         return null       
     }
 
-    static async deleteDia({idDia}){
+    static async deleteDia({nroDia}){
         try{
-            const data = await db.query('DELETE FROM dia WHERE idDia = ?',[idDia])
+            const data = await db.query('DELETE FROM dia WHERE nroDia = ?',[nroDia])
             return data[0]
         }catch(error){
             console.log(error) // agregar manejo de errores
