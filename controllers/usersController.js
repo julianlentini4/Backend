@@ -68,6 +68,7 @@ export class UsersController{
             sameSite: 'strict',
             maxAge: null
         })
+        
         return res.status(200).json('Acepted')
     }
 }
