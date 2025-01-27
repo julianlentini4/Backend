@@ -75,8 +75,10 @@ export class UsersModel{
     }
 
     static async getUsersLogin({username}){
+        console.log(username)
         const data = await db.query('SELECT clave,username,tipo,sector,descripcion FROM Users where username=?',[username])
-        if(data.length==0) return null
+        console.log(data)
+        if(data[0].length==0) return null
         return data[0]
     }
 }
